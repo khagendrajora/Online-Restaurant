@@ -18,5 +18,5 @@ exports.postOrder = async (req, res) => {
     const orderItemIdResolved = await orderItemIds   // this id must be passed in orderModel
 
     //calculate total price
-    const totalAmount
+
 }
