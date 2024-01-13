@@ -1,0 +1,253 @@
+const User = require('../models/User')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const jwtSecret = "mynameiskhan"
+const Token = require('../models/tokenModel')
+const crypto = require('crypto')
+const sendEmail = require('../utils/setEmail')
+
+
+//signup
+// exports.createUser = async (req, res) => {
+//     const salt = await bcrypt.genSalt(10)
+//     let secPassword = await bcrypt.hash(req.body.password, salt)
+//     try {
+//         await User.create({
+//             name: req.body.name,
+//             location: req.body.location,
+//             email: req.body.email,
+//             password: secPassword,
+//             //image: req.file.path,
+
+//             // name: "khagendra", 
+//             // location:"kanchanpur",
+//             // email:"kexample@gmail.com",
+//             // password:"87654321"
+//         })
+//         //check if email is unique or not
+//         User.findOne({ email: User.email })
+//             .then(async data => {
+//                 if (data) {
+//                     return res.status(400).json({ error: 'Used email' })
+//                 } else {
+//                     res = console.log("success")
+//                 }
+//             })
+
+//     }
+//     catch (error) {
+
+//         console.log(error)
+//     }
+// }
+
+exports.createUser = async (req, res) => {
+    const salt = await bcrypt.genSalt(10)
+    let secPassword = await bcrypt.hash(req.body.password, salt)
+    let user = new User({
+        name: req.body.name,
+        location: req.body.location,
+        email: req.body.email,
+        password: secPassword,
+        //image: req.file.path,
+
+    })
+    //check if email is unique or not
+    User.findOne({ email: user.email })
+        .then(async data => {
+            if (data) {
+                return res.status(400).json({ error: 'Used email' })
+            } else {
+                user = await user.save()
+                if (!user) {
+                    return res.status(400).json({ error: 'not uploaded' })
+                }
+
+                //send token to database
+                let token = new Token({
+                    token: crypto.randomBytes(16).toString('hex'),
+                    userId: user._id
+                })
+                token = await token.save()
+                if (!token) {
+                    return res.status(400).json({ error: 'failed to generate token' })
+                }
+                //send email
+                sendEmail({
+                    from: 'no-reply@foody.com',
+                    to: user.email,
+                    subject: "Email Verification Link",
+                    text: `Hello \n Please verify your email by clicking below \n\n
+                    http://${req.headers.host}/api/confirmation/${token.token} `,
+                    html: `<a href='#'>Click</a>`
+
+                })
+                res.send(user)
+            }
+        })
+        .catch(err => {
+            return res.status(400).json({ error: err })
+        })
+
+}
+
+//email Confirmation
+
+exports.postEmailConfirmation = (req, res) => {
+    //at first find the valid or matching token
+
+    Token.findOne({ token: req.params.token })
+        .then(token => {
+            if (!token) {
+                return res.status(400).json({ error: 'invalid or expired token' })
+            }
+            //if valid token is found then find the valid user of that token
+            User.findOne({ _id: token.userId })
+                .then(user => {
+                    if (!user) {
+                        return res.status(403).json({ error: 'invalid user for the token' })
+                    }
+                    // check if user is already verified or not
+                    if (user.isVerified) {
+                        return res.status(400).json({ error: 'Email is already verified' })
+                    }
+                    // save the verified user
+
+                    user.isVerified = true
+                    user.save()
+                        .then(user => {
+                            if (!user) {
+                                return res.status(400).json({ error: 'failed to verify' })
+                            } else {
+                                res.json({ message: 'Email Verified' })
+                            }
+                        }).catch(err => {
+                            return res.status(400).json({ err: err })
+                        })
+
+                }).catch(err => {
+                    return res.status(400).json({ err: err })
+                })
+        }).catch(err => {
+            return res.status(400).json({ err: err })
+        })
+
+}
+
+
+
+//login 
+
+exports.login = async (req, res) => {
+    let email = req.body.email
+    try {
+        let userData = await User.findOne({ email })
+        if (!userData) {
+            return res.status(400).json({ error: 'Invalid info' })
+        }
+        const pwdCompare = await bcrypt.compare(req.body.password, userData.password)
+        if (!pwdCompare) {
+
+            return res.status(400).json({ error: 'Invalid password' })
+        }
+        if (!userData.isVerified) {
+            return res.status(400).json({ error: "verify your email" })
+        }
+        const data = {
+            user: {
+                id: userData.id
+            }
+        }
+        const authToken = jwt.sign(data, jwtSecret)
+        //let datas = res.cookie('myCookie', authToken, { expire: Date.now() + 9999 })
+        //console.log(datas)
+        // .then(data => {
+        //     console.log(data)
+        // }).catch(err => {
+        //     return res.status(400).json({ err: err })
+        // })
+
+        return (
+
+            res.json({ authToken: authToken }
+                //         //localStorage.setItem("authToken",authToken))
+            ))
+
+    } catch (error) {
+        console.log(error, "Provide valid information")
+
+    }
+}
+//SignOut
+exports.signOut = (req, res) => {
+    res.clearCookie('myCookie')
+    res.json({ message: 'Signedout Successfully' })
+}
+//forget password 
+
+exports.forgetPwd = async (req, res) => {
+    User.findOne({ email: req.body.email })
+        .then(async data => {
+            if (!data) {
+                return res.status(400).json({ error: "email not present in DB" })
+            }
+            let token = new Token({
+                token: crypto.randomBytes(16).toString('hex'),
+                userId: data._id
+            })
+            token = await token.save()
+            if (!token) {
+                res.status(400).json({ error: 'token not generated' })
+            }
+            sendEmail({
+                from: 'no-reply@foody.com',
+                to: data.email,
+                subject: "Pwd reset link Link",
+                text: `hello \n your password reset link is \n
+                http://${req.headers.host}/api/resetpassword/${token.token}`,
+                html: `<a href='#'>Click</a>`
+            })
+        }).catch(err => {
+            return res.status(400).json({ err: err })
+        })
+
+}
+//reset password
+exports.resetPwd = async (req, res) => {
+    Token.findOne({ token: req.params.token })
+        .then(data => {
+            if (!data) {
+                return res.status(400).json({ error: "token not found" })
+            }
+            User.findOne({ _id: data.userId })
+                .then(id => {
+                    if (!id) {
+                        return res.status(400).json({ error: "invalid email for given token" })
+                    } else {
+                        id.password = req.body.password
+                        id.save()
+                        res.json({ message: 'password  has been reset' })
+                    }
+                })
+                .catch(err => {
+                    return res.status(400).json({ error: "email and token not matched" })
+                })
+
+
+        }).catch(err => {
+            return res.status(400).json({ error: "token not found" })
+        })
+}
+
+
+
+//Display userDetail
+
+exports.userDetail = async (req, res) => {
+
+    const user = await User.findById(req.params.id)
+    if (!user) {
+        return res.status(400).json({ error: "invalid" })
+    }
+    res.send(user)
+}
