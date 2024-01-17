@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 const createUser = require('./routes/UserRoute')
 const displaydata = require('./routes/DisplayDataRoute')
 const item = require('./routes/ItemRoute')
+const orderRoute = require('./routes/OrderRoute')
 
 
 
@@ -28,6 +29,7 @@ app.use('/public/uploads', express.static('public/uploads'))
 app.use('/api', createUser)
 app.use('/api', displaydata)
 app.use('/api', item)
+app.use('/api', orderRoute)
 
 
 

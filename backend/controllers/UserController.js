@@ -1,10 +1,12 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')//authentication
 const jwtSecret = "mynameiskhan"
 const Token = require('../models/tokenModel')
 const crypto = require('crypto')
 const sendEmail = require('../utils/setEmail')
+const { expressjwt } = require("express-jwt")  //authorization
+
 
 
 //signup
@@ -165,7 +167,7 @@ exports.login = async (req, res) => {
         //     console.log(data)
         // }).catch(err => {
         //     return res.status(400).json({ err: err })
-        // })
+        // }) 
 
         return (
 
@@ -178,11 +180,17 @@ exports.login = async (req, res) => {
 
     }
 }
+
+
 //SignOut
 exports.signOut = (req, res) => {
     res.clearCookie('myCookie')
-    res.json({ message: 'Signedout Successfully' })
+    res.json({ message: 'Signed out Successfully' })
 }
+
+
+
+
 //forget password 
 
 exports.forgetPwd = async (req, res) => {
@@ -212,6 +220,8 @@ exports.forgetPwd = async (req, res) => {
         })
 
 }
+
+
 //reset password
 exports.resetPwd = async (req, res) => {
     Token.findOne({ token: req.params.token })
@@ -250,4 +260,36 @@ exports.userDetail = async (req, res) => {
         return res.status(400).json({ error: "invalid" })
     }
     res.send(user)
+}
+
+
+exports.userList = async (req, res) => {
+
+    const userList = await User.find()
+    if (!userList) {
+        return res.status(400).json({ error: 'List not found' })
+    }
+    res.send(userList)
+}
+
+//admin middleware
+
+exports.requireAdmin = (req, res, next) => {
+    //verify jwt
+    expressjwt({
+        secret: jwtSecret,
+        algorithms: ["HS256"],
+        userProperty: 'auth'
+    })(req, res, (err) => {
+        if (err) {
+            return res.status(401).json({ error: 'unauthorized' })
+        }
+        //check for user role
+        if (req.auth.role === "0") {
+            next()
+        }
+        else {
+            return res.status(403).json({ error: 'you are not authorized ' })
+        }
+    })
 }

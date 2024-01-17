@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { createUser, login, userDetail, postEmailConfirmation, forgetPwd, resetPwd, signOut } = require('../controllers/UserController')   // while importinfg function use {}
+const { createUser, login, userDetail, postEmailConfirmation, forgetPwd, resetPwd, signOut, userList } = require('../controllers/UserController')   // while importinfg function use {}
 const { userValidation, validation } = require('../validation/Validation')
+
 //const upload = require('../middleware/fileUpload')
 
 //router.post('/createUser', upload.single('image'), userValidation, validation, createUser)
@@ -12,4 +13,6 @@ router.get('/userdetails/:id', userDetail)
 router.post('/forgetpwd', forgetPwd)
 router.put('/resetpassword/:token', resetPwd)
 router.post('/signout', signOut)
+router.get('/userlist', userList)
+
 module.exports = router

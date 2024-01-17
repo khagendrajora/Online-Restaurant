@@ -10,7 +10,7 @@ const orderItemSchema = new mongoose.Schema({
     item: {
         type: ObjectId,
         required: true,
-        red: 'ItemSchema'
+        ref: 'ItemSchema'
     },
 
 }, { timestamps: true })

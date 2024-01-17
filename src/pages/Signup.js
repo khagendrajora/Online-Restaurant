@@ -71,12 +71,6 @@ export const Signup = () => {
 
 
         <>
-
-
-
-
-
-
             <Navbar />
             <div className='form-container' style={{ "height": "1000px" }} >
                 <form className='htmlForm-horizontal' onSubmit={formik.handleSubmit}>
