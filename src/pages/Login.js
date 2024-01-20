@@ -21,7 +21,8 @@ export const Login = () => {
     } if (response.ok) {
       const data = await response.json()
       localStorage.setItem("authToken", data.authToken)
-      localStorage.setItem("logedinUser", values.email)
+      localStorage.setItem("logedinUserEmail", data.email)
+      localStorage.setItem("logedinUser", data.id)
 
       console.log(localStorage.getItem("authToken"))
       console.log(localStorage.getItem("logedinUser"))

@@ -19,7 +19,9 @@ export const ItemDetails = () => {
   const addToCart = () => {
 
     const authToken = localStorage.getItem('authToken')
-    const userEmail = localStorage.getItem('logedinUser')
+    const userEmail = localStorage.getItem('logedinUserEmail')
+    const userEmailId = localStorage.getItem('logedinUser')
+
     // if (userEmail) {
     //   const userEmail=
 
@@ -34,6 +36,7 @@ export const ItemDetails = () => {
         description: item.item_description,
         price: item.item_price,
         userEmail: userEmail,
+        userId: userEmailId,
         quantity: 1,
 
       }

@@ -87,11 +87,6 @@ export const Home = () => {
           }
         </div>
         <hr />
-
-
-
-
-
         <Footer />
       </div>
     </>

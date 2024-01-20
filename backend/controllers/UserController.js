@@ -74,6 +74,8 @@ exports.createUser = async (req, res) => {
                 if (!token) {
                     return res.status(400).json({ error: 'failed to generate token' })
                 }
+
+                const url = process.env.FRONTEND_URL + '\/email\/confirmation\/' + token.token
                 //send email
                 sendEmail({
                     from: 'no-reply@foody.com',
@@ -160,7 +162,7 @@ exports.login = async (req, res) => {
                 id: userData.id
             }
         }
-        const authToken = jwt.sign(data, jwtSecret)
+        const authToken = jwt.sign({ data }, jwtSecret)
         //let datas = res.cookie('myCookie', authToken, { expire: Date.now() + 9999 })
         //console.log(datas)
         // .then(data => {
@@ -171,7 +173,14 @@ exports.login = async (req, res) => {
 
         return (
 
-            res.json({ authToken: authToken }
+            res.json({
+                authToken: authToken,
+                role: userData.role,
+                id: userData._id,
+                email: userData.email,
+                name: userData.name
+
+            }
                 //         //localStorage.setItem("authToken",authToken))
             ))
 
@@ -279,14 +288,38 @@ exports.requireAdmin = (req, res, next) => {
     expressjwt({
         secret: jwtSecret,
         algorithms: ["HS256"],
+        userProperty: 'auth'  //auth ko thau ma j use garda ni hunxa
+
+    })(req, res, (err) => {
+        if (err) {
+            return res.status(401).json({ error: 'unauthorized' })
+        }
+        //check for user role
+        if (req.auth.role === "1") {
+            next();
+        }
+        else {
+            return res.status(403).json({ error: 'you are not authorized ' })
+        }
+    })
+}
+
+//user middleware
+
+exports.requireUser = (req, res, next) => {
+    //verify jwt
+    expressjwt({
+        secret: jwtSecret,
+        algorithms: ["HS256"],
         userProperty: 'auth'
+
     })(req, res, (err) => {
         if (err) {
             return res.status(401).json({ error: 'unauthorized' })
         }
         //check for user role
         if (req.auth.role === "0") {
-            next()
+            next();
         }
         else {
             return res.status(403).json({ error: 'you are not authorized ' })

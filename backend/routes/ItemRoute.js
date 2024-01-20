@@ -8,6 +8,6 @@ const { requireAdmin } = require('../controllers/UserController')
 //router.post('/itemupload', upload.single('item_image'), ItemUpload)
 router.post('/itemupload', ItemUpload, validation)
 router.get('/itemdetails/:id', itemDetails)
-router.get('/itemlist', requireAdmin, itemList)
+router.get('/itemlist', itemList)
 
 module.exports = router

@@ -16,9 +16,11 @@ const ItemUpload = () => {
         })
         if (!response.ok) {
             toast.error('Details invalid')
+
         }
         if (response.ok) {
             toast.success('Item Uploaded ')
+
         }
 
     }
@@ -31,8 +33,11 @@ const ItemUpload = () => {
             // item_img: ''
 
         },
-        onSubmit: (values) => {
+        onSubmit: (values, { setSubmitting }) => {
+            setSubmitting(true)
             handleSubmit(values)
+
+
         },
         validate: values => {
             let errors = {}
@@ -62,8 +67,11 @@ const ItemUpload = () => {
     return (
         <>
             <Navbar />
+
             <ToastContainer theme='colored' position='top-right' />
-            <form onSubmit={formik.handleSubmit}>
+
+            <form onSubmit={formik.handleSubmit}  >
+
                 <div className="form-group">
                     <label htmlfor="title">Item Name</label>
                     <input type="text" className="form-control" name='item_name' id="title" aria-describedby="emailHelp" placeholder="Name of the item"
