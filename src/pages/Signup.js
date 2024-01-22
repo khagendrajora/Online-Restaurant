@@ -21,10 +21,10 @@ export const Signup = () => {
 
 
         }
-        if (response.ok) {
+        // if (response.ok) {
 
-            navigate('/login')
-        }
+        //     navigate('/login')
+        // }
     }
 
     const formik = useFormik({
@@ -64,19 +64,12 @@ export const Signup = () => {
         },
         enableReinitialize: true,
     })
-
-
-
     return (
-
-
         <>
             <Navbar />
             <div className='form-container' style={{ "height": "1000px" }} >
                 <form className='htmlForm-horizontal' onSubmit={formik.handleSubmit}>
                     <div className='form-body' style={{ "height": "700px" }}>
-
-
                         <div className="htmlForm-group ">
                             <label htmlFor="name">Name:</label>
                             <input type="text" className="control-label" name='name' placeholder="Enter name"
@@ -87,22 +80,22 @@ export const Signup = () => {
                         </div>
                         <div className="htmlForm-group ">
                             <label htmlFor="location">Location</label>
-                            <input type="text" className="control-label" name='location' id="exampleInputlocation" placeholder="location"
+                            <input type="text" className="control-label" name='location' id="location" placeholder="location"
                                 onChange={formik.handleChange}
                                 value={formik.location} />
                             {formik.touched.location && formik.errors.location ? <div>{formik.errors.location}</div> : null}
                         </div>
                         <div className="htmlForm-group">
-                            <label htmlFor="exampleInputEmail1">Email address</label>
-                            <input type="email" className="control-label" name='email' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+                            <label htmlFor="email">Email address</label>
+                            <input type="email" className="control-label" name='email' id="Email" aria-describedby="emailHelp" placeholder="Enter email"
                                 onChange={formik.handleChange}
                                 value={formik.email} />
                             {formik.touched.name && formik.errors.email ? <div>{formik.errors.email}</div> : null}
 
                         </div>
                         <div className="htmlForm-group ">
-                            <label htmlFor="exampleInputPassword1">Password</label>
-                            <input type="text" className="control-label" name='password' id="exampleInputPassword1" placeholder="Password"
+                            <label htmlFor="password">Password</label>
+                            <input type="text" className="control-label" name='password' id="Password" placeholder="Password"
                                 onChange={formik.handleChange}
                                 value={formik.password} />
                             {formik.touched.name && formik.errors.password ? <div>{formik.errors.password}</div> : null}

@@ -1,14 +1,24 @@
 import React from 'react'
 import { Link, useNavigate, } from 'react-router-dom'
+import { API } from '../Config'
 
 
 const Navbar = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     //const params = useParams()
     const handleLogOut = () => {
         localStorage.removeItem('authToken')
         localStorage.removeItem('logedinUser')
-        navigate('/')
+        localStorage.removeItem('logedinUserEmail')
+        return fetch(`${API}/signout`, {
+            method: 'POST'
+        })
+            .then(res => {
+                console.log('signout', res)
+            })
+            .catch(err => console.log(err))
+
+
     }
     //const authToken = localStorage.getItem('authToken');
     const loginId = localStorage.getItem('logedinUser')

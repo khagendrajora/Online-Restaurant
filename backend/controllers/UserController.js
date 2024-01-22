@@ -83,7 +83,9 @@ exports.createUser = async (req, res) => {
                     subject: "Email Verification Link",
                     text: `Hello \n Please verify your email by clicking below \n\n
                     http://${req.headers.host}/api/confirmation/${token.token} `,
-                    html: `<a href='#'>Click</a>`
+                    html: `
+                    <h1>Verify your Email</h1>
+                    <a href='${url}'>Click to verify your email</a>`
 
                 })
                 res.send(user)
@@ -203,7 +205,8 @@ exports.signOut = (req, res) => {
 //forget password 
 
 exports.forgetPwd = async (req, res) => {
-    User.findOne({ email: req.body.email })
+    let email = req.body.email
+    User.findOne({ email })
         .then(async data => {
             if (!data) {
                 return res.status(400).json({ error: "email not present in DB" })
@@ -216,16 +219,18 @@ exports.forgetPwd = async (req, res) => {
             if (!token) {
                 res.status(400).json({ error: 'token not generated' })
             }
+            const url = process.env.FRONTEND_URL + '\/resetpassword\/' + token.token
             sendEmail({
                 from: 'no-reply@foody.com',
                 to: data.email,
                 subject: "Pwd reset link Link",
                 text: `hello \n your password reset link is \n
                 http://${req.headers.host}/api/resetpassword/${token.token}`,
-                html: `<a href='#'>Click</a>`
+                html: `
+                <a href='${url}'>Click to reset password</a>`
             })
         }).catch(err => {
-            return res.status(400).json({ err: err })
+            return res.status(400).json({ err: 'failed' })
         })
 
 }
@@ -239,11 +244,13 @@ exports.resetPwd = async (req, res) => {
                 return res.status(400).json({ error: "token not found" })
             }
             User.findOne({ _id: data.userId })
-                .then(id => {
+                .then(async id => {
                     if (!id) {
                         return res.status(400).json({ error: "invalid email for given token" })
                     } else {
-                        id.password = req.body.password
+                        const salt = await bcrypt.genSalt(10)
+                        let secPassword = await bcrypt.hash(req.body.password, salt)
+                        id.password = secPassword
                         id.save()
                         res.json({ message: 'password  has been reset' })
                     }

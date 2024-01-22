@@ -17,7 +17,7 @@ const MyCart = () => {
     useEffect(() => {
         if (cartItem) {
             const user = localStorage.getItem('logedinUser')
-            const cart = cartItem.filter(item => item.userEmail === user)
+            const cart = cartItem.filter(item => item.userId === user)
 
             if (cart) {
                 setMyCartItem(cart)

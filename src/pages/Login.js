@@ -29,8 +29,6 @@ export const Login = () => {
 
       navigate('/')
     }
-
-
   }
   const formik = useFormik({
     initialValues: {
@@ -38,6 +36,7 @@ export const Login = () => {
       password: ''
     },
     onSubmit: (values) => {
+      //  values.preventDefault()
       handleSubmit(values)
     },
   })
@@ -50,15 +49,15 @@ export const Login = () => {
 
 
             <div className="htmlForm-group">
-              <label htmlFor="exampleInputEmail1">Email address:</label>
-              <input type="email" className="control-label" name='email' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+              <label htmlFor="email">Email address:</label>
+              <input type="email" className="control-label" name='email' id="Email" aria-describedby="emailHelp" placeholder="Enter email"
                 onChange={formik.handleChange}
                 value={formik.email} />
               {formik.touched.name && formik.errors.email ? <div>{formik.errors.email}</div> : null}
             </div>
             <div className="htmlForm-group">
-              <label htmlFor="exampleInputPassword1">Password</label>
-              <input type="password" className="control-label" name='password' id="exampleInputPassword1" placeholder="Password"
+              <label htmlFor="password">Password</label>
+              <input type="password" className="control-label" name='password' id="Password" placeholder="Password"
                 onChange={formik.handleChange}
                 value={formik.password} />
               {formik.touched.name && formik.errors.password ? <div>{formik.errors.password}</div> : null}
@@ -66,7 +65,7 @@ export const Login = () => {
             <div>
               <div className='d-flex justify-content-between '>
                 <button type="submit" className="m-3 btn btn-success">Login</button>
-                <Link to="#" className='mt-4'>Forget Password</Link>
+                <Link to='/forgetpassword' className='mt-4'>Forget Password</Link>
               </div>
               <p>Don`t have an account?<Link to='/signup' className='m-3  btn-danger'>Signup</Link></p>
             </div>
