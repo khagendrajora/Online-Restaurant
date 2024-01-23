@@ -58,7 +58,7 @@ const Navbar = () => {
                         </div>
                         : <div className='me-4 d-flex'>
                             <Link class="btn bg-primary text-white me-2" to="mycart">MyCart</Link>
-                            <Link class="btn bg-primary text-white" to={`/itemupload`}>Upload Item</Link>
+                            <Link class="btn bg-primary text-white" to={`admin/itemupload`}>Upload Item</Link>
                             <Link class="btn bg-primary text-white" to={`/userdetails/${loginId}`}>Profile</Link>
                             <Link class="btn bg-primary text-white" onClick={handleLogOut} to="/">LogOut</Link>
 

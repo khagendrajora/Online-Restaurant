@@ -35,9 +35,6 @@ export const ForgetPasswort = () => {
 
     return (
         <>
-            <Navbar />
-
-
             <div className='form-container'>
                 <form onSubmit={formik.handleSubmit}>
                     <h2>Forget Password</h2>

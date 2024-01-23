@@ -57,7 +57,6 @@ export const ItemDetails = () => {
   }
   return (
     <>
-      <Navbar />
       <ToastContainer theme='colored' position='top-right' />
       <div className="container d-flex md-flex-column">
         <div className="  ">

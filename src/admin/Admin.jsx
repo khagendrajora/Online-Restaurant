@@ -1,0 +1,53 @@
+import React from 'react'
+import Navbar from '../components/Navbar'
+import { useNavigate } from 'react-router-dom'
+
+export const Admin = () => {
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate('itemupload')
+
+    }
+    const handleOrder = () => {
+        navigate('/orderlist')
+    }
+    return (
+        <>
+            <Navbar />
+            <div className='admin-container'>
+                <div className='sub-container' onClick={handleOrder} style={{ backgroundColor: 'yellow' }}>
+                    <div className='content'>
+                        Order List
+                    </div>
+                </div>
+
+                <div className='sub-container' onClick={handleClick} style={{ backgroundColor: 'green' }}>
+                    <div className='content'>
+                        Add Food Item
+                    </div>
+                </div>
+
+                <div className='sub-container' style={{ backgroundColor: 'red' }}>
+                    <div className='content'>
+                        Delete Food Item
+                    </div>
+                </div>
+
+                <div className='sub-container' style={{ backgroundColor: 'pink' }}>
+                    <div className='content'>
+                        Update Food Item
+                    </div>
+                </div>
+
+                <div className='sub-container' style={{ backgroundColor: 'whitesmoke' }}>
+                    <div className='content'>
+                        Update Order Status
+                    </div>
+                </div>
+
+            </div>
+
+
+        </>
+    )
+}

@@ -26,7 +26,6 @@ export const UserDetails = () => {
 
     return (
         <>
-            <Navbar />
             <div className='profile'  >
                 <div className='body'>
                     <div className='img'>

@@ -51,7 +51,6 @@ const MyCart = () => {
     })
     return (
         <>
-            <Navbar />
             {mycartItem.length > 0 ?
                 mycartItem.map((item, i) => (
                     <Fragment key={i}>

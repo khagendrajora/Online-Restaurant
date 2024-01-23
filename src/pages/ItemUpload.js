@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import { useFormik } from 'formik'
 import { API } from '../Config'
 import { ToastContainer, toast } from 'react-toastify'
@@ -66,8 +65,6 @@ const ItemUpload = () => {
 
     return (
         <>
-            <Navbar />
-
             <ToastContainer theme='colored' position='top-right' />
 
             <form onSubmit={formik.handleSubmit}  >

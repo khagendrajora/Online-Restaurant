@@ -42,7 +42,6 @@ export const Login = () => {
   })
   return (
     <>
-      <Navbar />
       <div className='form-container' >
         <form onSubmit={formik.handleSubmit}>
           <div className='form-body'>
