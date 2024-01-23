@@ -5,8 +5,8 @@ const { requireUser, requireAdmin } = require('../controllers/UserController')
 const router = express.Router()
 
 
-router.post('/postorder', requireUser, postOrder)
-router.get('/orderlist', requireAdmin, orderList)
+router.post('/postorder', postOrder)
+router.get('/orderlist', orderList)
 router.get('/orderdetail/:id', requireAdmin, orderDetail)
 router.put('/updatestatus/:id', requireAdmin, updateStatus)
 router.get('/userorderlist/:userid', requireUser, userOrderList)

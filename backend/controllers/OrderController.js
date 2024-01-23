@@ -33,7 +33,8 @@ exports.postOrder = async (req, res) => {
         orderItem: orderItemIdResolved,
         shippingAddress1: req.body.shippingAddress1,
         totalPrice: totalPrice,
-        user: req.body.user
+        user: req.body.user,
+        quantity: orderItemIds.quantity
     })
 
     order = await order.save()
@@ -48,6 +49,11 @@ exports.postOrder = async (req, res) => {
 exports.orderList = async (req, res) => {
     const orderList = await OrderModel.find()
         .populate('user', 'name')
+        .populate({
+            path: 'orderItem', populate: {
+                path: 'item', populate: 'item_name'
+            }
+        })
         .sort({ createdAt: -1 })
     if (!orderList) {
         return res.status(400).json({ error: 'list not fetched' })

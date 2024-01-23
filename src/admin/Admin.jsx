@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom'
 
 export const Admin = () => {
@@ -9,16 +8,20 @@ export const Admin = () => {
 
     }
     const handleOrder = () => {
-        navigate('/orderlist')
+        navigate('orderlist')
     }
     return (
         <>
-            <Navbar />
+
             <div className='admin-container'>
                 <div className='sub-container' onClick={handleOrder} style={{ backgroundColor: 'yellow' }}>
                     <div className='content'>
                         Order List
                     </div>
+                    <div className='content'>
+                        Order List
+                    </div>
+
                 </div>
 
                 <div className='sub-container' onClick={handleClick} style={{ backgroundColor: 'green' }}>

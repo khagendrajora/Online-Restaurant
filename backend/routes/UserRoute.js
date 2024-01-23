@@ -13,6 +13,6 @@ router.get('/userdetails/:id', userDetail)
 router.post('/forgetpwd', forgetPwd)
 router.put('/resetpassword/:token', resetPwd)
 router.post('/signout', signOut)
-router.get('/userlist', requireUser, userList)
+router.get('/userlist', userList)
 
 module.exports = router
