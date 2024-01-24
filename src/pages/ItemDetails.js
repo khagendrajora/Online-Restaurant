@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { API } from '../Config'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from '../components/Navbar'
+
 
 export const ItemDetails = () => {
   const params = useParams()

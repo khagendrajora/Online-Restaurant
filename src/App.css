@@ -163,40 +163,6 @@ input {
   }
 }
 
-.admin-container {
-  background-color: purple;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 1rem;
-
-
-}
-
-.sub-container {
-  width: 18%;
-  height: 10rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 0.5rem;
-  border-color: #282c34;
-  box-sizing: border-box;
-  border: 2rem;
-  cursor: pointer;
-  box-shadow: 0 4px 4px 0 whitesmoke;
-  margin: 1rem 1rem 0 1rem;
-  text-align: center;
-}
-
-.content {
-  font-size: large;
-  font-weight: bold;
-
-}
-
 @media (max-width:450px) {
   .admin-container {
     background-color: blue;
@@ -205,9 +171,6 @@ input {
     max-width: 100%;
     justify-content: space-between;
     flex-direction: column;
-
-
-
   }
 
   .sub-container {
@@ -360,6 +323,42 @@ input {
 
 }
 
+.admin-container {
+  background-color: purple;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+
+
+}
+
+.sub-container {
+  width: 18%;
+  height: 10rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0.5rem;
+  border-color: #282c34;
+  box-sizing: border-box;
+  border: 2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 4px 0 whitesmoke;
+  margin: 1rem 1rem 0 1rem;
+  text-align: center;
+}
+
+.content {
+  font-size: large;
+  font-weight: bold;
+
+}
+
+
+
 /* admin/ orderlist */
 
 
@@ -403,4 +402,12 @@ span {
 .id {
   display: flex;
   flex-direction: column;
+}
+
+
+/* admin itemlist */
+
+.action {
+  display: flex;
+  justify-content: space-evenly;
 }

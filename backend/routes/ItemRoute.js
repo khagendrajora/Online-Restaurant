@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { ItemUpload, itemDetails, itemList } = require('../controllers/ItemController')
+const { ItemUpload, itemDetails, itemList, deleteItem } = require('../controllers/ItemController')
 const { validation } = require('../validation/Validation')
 const { requireAdmin } = require('../controllers/UserController')
 //const upload = require('../middleware/fileUpload')
@@ -9,5 +9,6 @@ const { requireAdmin } = require('../controllers/UserController')
 router.post('/itemupload', ItemUpload, validation)
 router.get('/itemdetails/:id', itemDetails)
 router.get('/itemlist', itemList)
+router.delete('/deleteitem/:id', deleteItem)
 
 module.exports = router

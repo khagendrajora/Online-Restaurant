@@ -1,11 +1,11 @@
 import React from 'react'
 import { useFormik, } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import Navbar from './../components/Navbar';
+
 
 
 export const Signup = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const handleSubmit = async (values) => {
         const response = await fetch('http://localhost:5000/api/createUser', {
             method: 'POST',

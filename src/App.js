@@ -14,6 +14,7 @@ import { Admin } from './admin/Admin';
 import { OrderList } from './admin/OrderList';
 import Layouts from './components/Layouts';
 import ItemUpload from './pages/ItemUpload';
+import { ItemList } from './admin/ItemList';
 
 
 
@@ -38,6 +39,7 @@ function App() {
             <Route path='admin' element={<Admin />} />
             <Route path='admin/orderlist' element={<OrderList />} />
             <Route path='admin/itemupload' element={<ItemUpload />} />
+            <Route path='admin/itemlist' element={<ItemList />} />
             {/* <Route path='admin' element={<Admin />} /> */}
           </Route>
 

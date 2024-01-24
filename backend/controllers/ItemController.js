@@ -50,3 +50,20 @@ exports.itemList = async (req, res) => {
     res.send(item)
 }
 
+
+//delete item
+exports.deleteItem = async (req, res) => {
+    const id = req.params.id
+    Item.findByIdAndDelete(id)
+        .then((item) => {
+            if (!item) {
+                return res.status(403).json({ error: 'item not found' })
+            }
+            else {
+                return res.status(200).json({ message: 'item deleted' })
+            }
+        }).catch(err => {
+            return res.status(400).json({ error: err })
+        })
+}
+
