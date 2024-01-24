@@ -50,6 +50,22 @@ exports.itemList = async (req, res) => {
     res.send(item)
 }
 
+//update Item
+exports.updateItem = async (req, res) => {
+    const item = await Item.findByIdAndUpdate(req.params.id, {
+        item_name: req.body.item_name,
+        item_category: req.body.item_category,
+        item_description: req.body.item_description,
+        item_price: req.body.item_price
+    },
+        { new: true }
+    )
+    if (!item) {
+        return res.status(400).json({ error: 'upadate failed' })
+    }
+    res.send(item)
+}
+
 
 //delete item
 exports.deleteItem = async (req, res) => {

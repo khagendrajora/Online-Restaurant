@@ -1,12 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { API } from '../Config'
-import { FaLightbulb, FaPenAlt, FaTrash } from 'react-icons/fa'
+import { FaPenAlt, FaTrash } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 
 export const ItemList = () => {
     const [item, setitem] = useState([])
+    const navigate = useNavigate()
     useEffect(() => {
         axios.get(`${API}/itemlist`)
             .then(res => {
@@ -24,6 +26,11 @@ export const ItemList = () => {
                     toast.error('failed tom delete')
                 })
         }
+    }
+
+    const Edit = id => {
+        navigate(`../admin/itemupdate/${id}`)
+
 
     }
     return (
@@ -47,7 +54,7 @@ export const ItemList = () => {
                                     <td>
                                         <div className='action'>
                                             <button className='btn btn-danger' onClick={() => Delete(item._id)}><FaTrash /></button>
-                                            <button className='btn btn-success'><FaPenAlt /></button>
+                                            <button className='btn btn-success' onClick={() => Edit(item._id)}><FaPenAlt /></button>
                                         </div>
                                     </td>
                                 </tr>
