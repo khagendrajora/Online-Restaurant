@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Footer } from '../components/Footer'
 import Card from '../components/Card'
 import { Carousel } from '../components/Carousel'
 import { API } from '../Config'
@@ -86,7 +85,7 @@ export const Home = () => {
           }
         </div>
         <hr />
-        <Footer />
+
       </div>
     </>
   )
