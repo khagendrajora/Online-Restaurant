@@ -3,6 +3,7 @@ import Card from '../components/Card'
 import { Carousel } from '../components/Carousel'
 import { API } from '../Config'
 import axios from 'axios'
+import { Helmet } from 'react-helmet'
 
 
 export const Home = () => {
@@ -52,6 +53,10 @@ export const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Online Food Ordering App</title>
+        <meta name="description" content="Order Foods online" />
+      </Helmet>
 
       <Carousel />
       {/* {

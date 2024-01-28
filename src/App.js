@@ -16,6 +16,7 @@ import Layouts from './components/Layouts';
 import ItemUpload from './pages/ItemUpload';
 import { ItemList } from './admin/ItemList';
 import UpdateItem from './admin/UpdateItem';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -25,6 +26,10 @@ import UpdateItem from './admin/UpdateItem';
 function App() {
   return (
     <>
+      <Helmet>
+        <title>Online Food Ordering App</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <BrowserRouter>
         <Routes>
           <Route path='' element={<Layouts />} >
@@ -42,7 +47,7 @@ function App() {
             <Route path='admin/orderlist' element={<OrderList />} />
             <Route path='admin/itemupload' element={<ItemUpload />} />
             <Route path='admin/itemlist' element={<ItemList />} />
-            <Route path='admin/itemupdate/:id' element={<UpdateItem />} />
+            <Route path='admin/itemupdate/:itemId' element={<UpdateItem />} />
             {/* <Route path='admin' element={<Admin />} /> */}
           </Route>
 
