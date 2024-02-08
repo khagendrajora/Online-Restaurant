@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { FaTrash, FaPenAlt } from 'react-icons/fa';
 
 const MyCart = () => {
     const [cartItem, setCartItem] = useState([])
@@ -48,18 +49,26 @@ const MyCart = () => {
 
 
     })
+    const Delete = (id) => {
+
+    }
+    const Edit = (id) => {
+
+    }
     return (
         <>
-            {mycartItem.length > 0 ?
-                mycartItem.map((item, i) => (
-                    <Fragment key={i}>
-                        <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="row d-flex justify-content-center align-items-center h-100">
+                <div className="d-flex column align-items-center mb-5">
+                    <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
+                    <h6 className="">{mycartItem.length} items</h6>
+                </div>
+                {mycartItem.length > 0 ?
+                    mycartItem.map((item, i) => (
+                        <Fragment key={i}>
+
                             <div className="col-lg-8">
                                 <div className="p-5">
-                                    <div className="d-flex justify-content-between align-items-center mb-5">
-                                        <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
-                                        <h6 className="mb-0 text-muted">{mycartItem.length} items</h6>
-                                    </div>
+
                                     <hr className="my-4" />
                                     <div className="row mb-4 d-flex justify-content-between align-items-center">
                                         <div className="col-md-2 col-lg-2 col-xl-2">
@@ -81,11 +90,13 @@ const MyCart = () => {
                                         <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h6 className="mb-0">{item.price}</h6>
                                         </div>
+                                        <div className='col-md-3 col-lg-2 col-xl-2 offset-lg-1 mr-2'>
+                                            <button className='btn btn-danger' onClick={() => Delete(item._id)}><FaTrash /></button>
+                                            <button className='btn btn-success' onClick={() => Edit(item._id)}><FaPenAlt /></button>
+                                        </div>
                                     </div>
                                     <hr className="my-4" />
-                                    <div className="pt-5">
-                                        <Link to='/' className=' ' style={{ "fontFamily": 'monospace', "color": 'GrayText' }}  >Back To Home</Link>
-                                    </div>
+
                                 </div>
                             </div>
                             <div className="col-lg-4 bg-grey">
@@ -100,12 +111,16 @@ const MyCart = () => {
                                         data-mdb-ripple-color="dark">Confirm Order</button>
                                 </div>
                             </div>
-                        </div>
-                    </Fragment>
-                )) : <div>
-                    <h1 className='d-flex justify-conten-center'>Your Cart is empty</h1>
+
+                        </Fragment>
+                    )) : <div>
+                        <h1 className='d-flex justify-conten-center'>Your Cart is empty</h1>
+                    </div>
+                }
+                <div className="pt-5">
+                    <Link to='/' className=' ' style={{ "fontFamily": 'monospace', "color": 'GrayText' }}  >Back To Home</Link>
                 </div>
-            }
+            </div >
         </>
     )
 
