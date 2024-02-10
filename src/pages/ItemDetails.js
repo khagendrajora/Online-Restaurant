@@ -38,6 +38,7 @@ export const ItemDetails = () => {
         userEmail: userEmail,
         userId: userEmailId,
         quantity: 1,
+        totalPrice: item.item_price
 
       }
       const existingEmail = cartItem.find((item) => item.userEmail === NewCartItem.userEmail && item.id === NewCartItem.id) //this process is called combinational check of id and email in a particular cart item.
