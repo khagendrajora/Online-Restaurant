@@ -15,7 +15,7 @@ const UpdateItem = () => {
     const [item_price, setItemPrice] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
-    const [data, setData] = useState({})
+
 
     useEffect(() => {
         //const params = params.data_id  

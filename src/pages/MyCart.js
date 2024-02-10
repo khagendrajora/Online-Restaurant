@@ -1,9 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link, json } from 'react-router-dom'
-import { FaTrash, FaPenAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom'
+import { FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const MyCart = () => {
+    const navigate = useNavigate()
     const [cartItem, setCartItem] = useState([])
     const [mycartItem, setMyCartItem] = useState([])
 
@@ -51,14 +54,7 @@ const MyCart = () => {
             updateCart[i].totalPrice = total - price
             setMyCartItem(updateCart)
             localStorage.setItem(('cart'), JSON.stringify(mycartItem))
-
-
         }
-
-
-
-
-
 
     })
     const Delete = (id) => {
@@ -70,9 +66,13 @@ const MyCart = () => {
 
 
     }
-    // const Edit = (id) => {
 
-    // }
+    //CheckOut
+    const CheckOut = () => {
+        navigate('/checkout')
+
+    }
+
     return (
         <>
             <div className="row d-flex justify-content-center align-items-center h-100">
@@ -143,7 +143,7 @@ const MyCart = () => {
 
 
                         </div>
-                        <button type="button" className="btn btn-dark btn-block btn-lg"
+                        <button type="button" className="btn btn-dark btn-block btn-lg" onClick={CheckOut}
                             data-mdb-ripple-color="dark">Confirm Order</button>
                     </div>
                 </div>

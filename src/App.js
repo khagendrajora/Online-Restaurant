@@ -17,6 +17,7 @@ import ItemUpload from './pages/ItemUpload';
 import { ItemList } from './admin/ItemList';
 import UpdateItem from './admin/UpdateItem';
 import { Helmet } from 'react-helmet';
+import { CheckOut } from './pages/CheckOut';
 
 
 
@@ -48,6 +49,7 @@ function App() {
             <Route path='admin/itemupload' element={<ItemUpload />} />
             <Route path='admin/itemlist' element={<ItemList />} />
             <Route path='admin/itemupdate/:itemId' element={<UpdateItem />} />
+            <Route path='checkout' element={<CheckOut />} />
             {/* <Route path='admin' element={<Admin />} /> */}
           </Route>
 
