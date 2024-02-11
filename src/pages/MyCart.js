@@ -26,7 +26,7 @@ const MyCart = () => {
             if (cart) {
                 setMyCartItem(cart)
                 // console.log(cartItem)
-                console.log(cart)
+                // console.log(cart)
             } else {
                 console.log('not found')
             }
@@ -76,8 +76,12 @@ const MyCart = () => {
     return (
         <>
             <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="d-flex column align-items-center mb-5">
+                <div className="d-flex column align-items-center">
                     <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
+
+                </div>
+                <div>
+
                     <h6 className="">{mycartItem.length} items</h6>
                 </div>
                 {mycartItem.length > 0 ?

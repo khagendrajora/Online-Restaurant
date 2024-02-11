@@ -12,7 +12,7 @@ export const OrderList = () => {
                 const response = await axios.get(`${API}/orderlist`, {
                     method: "POST",
                     headers: {
-                        Accept: "application/json",
+                        Accept: "application.json",
                         'Content-Type': 'application/json'
                     }
                 }
@@ -25,7 +25,7 @@ export const OrderList = () => {
             }
         }
         fetchOrder()
-    })
+    }, [])
     return (
         <>
             <div className='order-container'>
@@ -48,7 +48,7 @@ export const OrderList = () => {
                                                     order.status === 'Pending' ? (
                                                         <div className='info-content' style={{ backgroundColor: 'red' }}>
                                                             <div className='id'><span>Food_ID:</span>{orderitem._id}</div>
-                                                            <div className='food-name'><span>Food_Item:</span>{orderitem.item.item_name}</div>
+                                                            <div className='food-name'><span>Food_Item:</span>{orderitem.item_name}</div>
                                                             <div className='quantity'><span>Quantity:</span>{orderitem.quantity}</div>
                                                             <div className='location'><span>Location:</span>{order.shippingAddress1}</div>
                                                             <div className='status'><span>Status:</span>{order.status}</div>
@@ -56,7 +56,7 @@ export const OrderList = () => {
                                                     ) : (
                                                         <div className='info-content' style={{ backgroundColor: 'green' }}>
                                                             <div className='id'><span>Food_ID:</span>{orderitem._id}</div>
-                                                            <div className='food-name'><span>Food_Item:</span>{orderitem.item.item_name}</div>
+                                                            <div className='food-name'><span>Food_Item:</span>{orderitem.item_name}</div>
                                                             <div className='quantity'><span>Quantity:</span>{orderitem.quantity}</div>
                                                             <div className='location'><span>Location:</span>{order.shippingAddress1}</div>
                                                             <div className='status'><span>Status:</span>{order.status}</div>

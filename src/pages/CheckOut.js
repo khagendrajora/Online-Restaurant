@@ -19,7 +19,7 @@ export const CheckOut = () => {
 
         }
         localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo))
-        navigate('/confirmed')
+        navigate('/confirmorder')
 
     }
     return (
