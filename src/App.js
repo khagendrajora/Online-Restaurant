@@ -17,8 +17,11 @@ import ItemUpload from './pages/ItemUpload';
 import { ItemList } from './admin/ItemList';
 import UpdateItem from './admin/UpdateItem';
 import { Helmet } from 'react-helmet';
-import { CheckOut } from './pages/CheckOut';
-import ConfirmOrder from './pages/ConfirmOrder';
+// import { CheckOut } from './pages/CheckOut';
+// import ConfirmOrder from './pages/ConfirmOrder';
+import Success from './pages/Success';
+import Failed from './pages/Failed';
+// import { PaymentElement } from './pages/PaymentElement';
 
 
 
@@ -43,6 +46,9 @@ function App() {
             <Route path='/itemdetails/:item_id' element={<ItemDetails />} />
             <Route path='userdetails/:user_id' element={<UserDetails />} />
             <Route path='mycart' element={<MyCart />} />
+            <Route path='success' element={<Success />} />
+            <Route path='failed' element={<Failed />} />
+            {/* <Route path='payment' element={<PaymentElement />} /> */}
 
             <Route path='resetpassword/:token' element={<ResetPassword />} />
             <Route path='admin' element={<Admin />} />
@@ -50,8 +56,8 @@ function App() {
             <Route path='admin/itemupload' element={<ItemUpload />} />
             <Route path='admin/itemlist' element={<ItemList />} />
             <Route path='admin/itemupdate/:itemId' element={<UpdateItem />} />
-            <Route path='checkout' element={<CheckOut />} />
-            <Route path='confirmorder' element={<ConfirmOrder />} />
+            {/* <Route path='checkout' element={<CheckOut />} /> */}
+            {/* <Route path='confirmorder' element={<ConfirmOrder />} /> */}
             {/* <Route path='admin' element={<Admin />} /> */}
           </Route>
 

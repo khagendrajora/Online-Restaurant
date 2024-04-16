@@ -8,41 +8,6 @@ const sendEmail = require('../utils/setEmail')
 const { expressjwt } = require("express-jwt")  //authorization
 
 
-
-//signup
-// exports.createUser = async (req, res) => {
-//     const salt = await bcrypt.genSalt(10)
-//     let secPassword = await bcrypt.hash(req.body.password, salt)
-//     try {
-//         await User.create({
-//             name: req.body.name,
-//             location: req.body.location,
-//             email: req.body.email,
-//             password: secPassword,
-//             //image: req.file.path,
-
-//             // name: "khagendra", 
-//             // location:"kanchanpur",
-//             // email:"kexample@gmail.com",
-//             // password:"87654321"
-//         })
-//         //check if email is unique or not
-//         User.findOne({ email: User.email })
-//             .then(async data => {
-//                 if (data) {
-//                     return res.status(400).json({ error: 'Used email' })
-//                 } else {
-//                     res = console.log("success")
-//                 }
-//             })
-
-//     }
-//     catch (error) {
-
-//         console.log(error)
-//     }
-// }
-
 exports.createUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     let secPassword = await bcrypt.hash(req.body.password, salt)
@@ -165,13 +130,6 @@ exports.login = async (req, res) => {
             }
         }
         const authToken = jwt.sign({ data }, jwtSecret)
-        //let datas = res.cookie('myCookie', authToken, { expire: Date.now() + 9999 })
-        //console.log(datas)
-        // .then(data => {
-        //     console.log(data)
-        // }).catch(err => {
-        //     return res.status(400).json({ err: err })
-        // }) 
 
         return (
 

@@ -2,13 +2,17 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+// import axios from 'axios';
+import { API } from '../Config';
 
 
 const MyCart = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [cartItem, setCartItem] = useState([])
     const [mycartItem, setMyCartItem] = useState([])
+    const [totalBill, setTotalBill] = useState('')
 
 
     useEffect(() => {
@@ -24,7 +28,11 @@ const MyCart = () => {
             const cart = cartItem.filter(item => item.userId === user)
 
             if (cart) {
+                const totalBill = cart.reduce((totalBill, item) => totalBill + item.totalPrice, 0)
+                setTotalBill(totalBill)
                 setMyCartItem(cart)
+                localStorage.setItem('mycartItem', JSON.stringify(cart))
+                // localStorage.setItem('totalBill', JSON.stringify(TotalBill))
                 // console.log(cartItem)
                 // console.log(cart)
             } else {
@@ -67,9 +75,30 @@ const MyCart = () => {
 
     }
 
-    //CheckOut
-    const CheckOut = () => {
-        navigate('/checkout')
+    //payment integration
+    const makePayment = async () => {
+        const stripe = await loadStripe('pk_test_51NXj0DFEiZnfC2Vh61hPOfvAhjnFvEAOpmGcUaE58FD0sigvCVNqrv5Dv78Y3mzl2lw0t6MnMZO62CShxTQ0sFjO00nCIk6o7S')
+        const body = {
+            products: mycartItem,
+            totalBill: totalBill
+
+        }
+        const headers = {
+            "Content-Type": "application/json"
+        }
+        const response = await fetch(`${API}/create-checkout-secession`, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(body)
+        })
+        const session = await response.json()
+        const result = stripe.redirectToCheckout({
+            sessionId: session.id
+        })
+        if (result.error) {
+            console.log(result.error)
+
+        }
 
     }
 
@@ -147,7 +176,7 @@ const MyCart = () => {
 
 
                         </div>
-                        <button type="button" className="btn btn-dark btn-block btn-lg" onClick={CheckOut}
+                        <button type="button" className="btn btn-dark btn-block btn-lg" onClick={makePayment}
                             data-mdb-ripple-color="dark">Confirm Order</button>
                     </div>
                 </div>

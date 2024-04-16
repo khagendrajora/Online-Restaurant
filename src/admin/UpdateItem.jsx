@@ -18,20 +18,19 @@ const UpdateItem = () => {
 
 
     useEffect(() => {
-        //const params = params.data_id  
+        // const id = params.data_id
         axios.get(`${API}itemdetails/${id}`)
             .then(res => {
-                const data = res.data
-                setInitialValues(data)
-                setItemName(data.item_name)
-                setItemCategory(data.item_category)
-                setItemDescription(data.item_description)
-                setItemPrice(data.item_price)
+                setInitialValues(res.data)
+                setItemName(res.data.item_name)
+                setItemCategory(res.data.item_category)
+                setItemDescription(res.data.item_description)
+                setItemPrice(res.data.item_price)
             })
             .catch(err => console.log(err))
 
 
-    }, [id])
+    }, [])
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
@@ -41,7 +40,14 @@ const UpdateItem = () => {
             formData.append('item_description', item_description)
             formData.append('item_category', item_category)
 
-            const response = await axios.put(`${API}/itemupdate/${id}`, formData)
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    // Authorization:`Bearer${token}`
+                }
+            }
+
+            const response = await axios.put(`${API}/itemupdate/${id}`, formData, config)
             setSuccess(true)
             setError("")
         }
@@ -77,20 +83,10 @@ const UpdateItem = () => {
                             id="price"
                             className="form-control"
                             onChange={e => setItemPrice(e.target.value)}
-                            value={item_price || initialValues.item_price}
+                            value={item_price}
                         />
                     </div>
-                    {/* <div className="mb-2">
-                                <label htmlFor="stock">Stock Quantity:</label>
-                                <input
-                                    type="number"
-                                    name="stock"
-                                    id="stock"
-                                    className="form-control"
-                                    onChange={e => setCountInStock(e.target.value)}
-                                    value={countInStock}
-                                />
-                            </div> */}
+
                     <div className="mb-2">
                         <label htmlFor="description">Item Description:</label>
                         <textarea
@@ -100,19 +96,10 @@ const UpdateItem = () => {
                             rows="10"
                             cols="30"
                             onChange={e => setItemDescription(e.target.value)}
-                            value={item_description || initialValues.item_description}
+                            value={item_description}
                         ></textarea>
                     </div>
-                    {/* <div className="mb-2">
-                                <label htmlFor="image">Product Image:</label>
-                                <input
-                                    type="file"
-                                    name="image"
-                                    id="image"
-                                    className="form-control"
-                                    onChange={e => setProductImage(e.target.files[0])}
-                                />
-                            </div> */}
+
                     <div className="mb-2">
                         <label htmlFor="category">Category:</label>
                         <input
@@ -121,7 +108,7 @@ const UpdateItem = () => {
                             id="category"
                             className="form-control"
                             onChange={e => setItemCategory(e.target.value)}
-                            value={item_category || initialValues.item_category}
+                            value={item_category}
                         />
                     </div>
                     <div className="mb-2">

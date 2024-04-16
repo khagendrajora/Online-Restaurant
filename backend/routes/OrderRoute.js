@@ -8,7 +8,7 @@ const router = express.Router()
 router.post('/postorder', postOrder)
 router.get('/orderlist', orderList)
 router.get('/orderdetail/:id', requireAdmin, orderDetail)
-router.put('/updatestatus/:id', requireAdmin, updateStatus)
+router.put('/updatestatus/:id', updateStatus)
 router.get('/userorderlist/:userid', requireUser, userOrderList)
 
 

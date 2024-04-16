@@ -21,7 +21,7 @@ export const UserDetails = () => {
         })
             .then(res => setUser(res.data))
             .catch(err => console.log(err))
-    }, [params.user_id])
+    }, [])
 
 
     return (
@@ -42,14 +42,8 @@ export const UserDetails = () => {
                         <div><b>Email:</b> {user.email}</div><hr />
                         <div><b>Location:</b>   :{user.location}</div><hr />
                     </div>
-
                 </div>
-
-
-
-
             </div>
-
         </>
     )
 }

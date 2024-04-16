@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createUser, login, userDetail, postEmailConfirmation, forgetPwd, resetPwd, signOut, userList, requireUser } = require('../controllers/UserController')   // while importinfg function use {}
+const { createUser, login, userDetail, postEmailConfirmation, forgetPwd, resetPwd, signOut, userList, requireUser, requireAdmin } = require('../controllers/UserController')   // while importinfg function use {}
 const { userValidation, validation } = require('../validation/Validation')
 
 //const upload = require('../middleware/fileUpload')
