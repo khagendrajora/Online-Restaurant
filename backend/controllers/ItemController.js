@@ -56,7 +56,8 @@ exports.updateItem = async (req, res) => {
         item_name: req.body.item_name,
         item_category: req.body.item_category,
         item_description: req.body.item_description,
-        item_price: req.body.item_price
+        item_price: req.body.item_price,
+        // item_img: req.file.path
     },
         { new: true }
     )

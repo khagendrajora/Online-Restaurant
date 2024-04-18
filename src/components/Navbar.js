@@ -1,11 +1,49 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { API } from '../Config'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping, faRightToBracket, faUserPlus, faBurger, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import axios from 'axios';
+
 
 
 const Navbar = () => {
-    // const navigate = useNavigate()
-    //const params = useParams()
+    const [showDropdown, setDropdown] = useState(false)
+    const [showSearchBar, setSearchBar] = useState(false)
+    const [filteredResult, setFilteredResult] = useState([])
+    const [search, setSearch] = useState('')
+    const [items, setitems] = useState([])
+    const handleChange = (e) => {
+        setSearch(e.target.value)
+    }
+
+    useEffect(() => {
+        const fetchItem = async () => {
+            try {
+
+                const res = await axios.get(`${API}/itemlist`, {
+
+                }
+                )
+                setitems(res.data)
+            } catch (error) {
+                console.error("error in fetch", error)
+            }
+            if (search) {
+                const filter = items.filter((item) =>
+                    item.name.tolowerCase().includes(search.toLowerCase())
+                )
+                setFilteredResult(filter)
+            }
+
+
+        }
+        fetchItem()
+    }, [])
+
+
+    const windowSize = useRef(window.innerWidth)
     const handleLogOut = () => {
         localStorage.removeItem('authToken')
         localStorage.removeItem('logedinUser')
@@ -22,51 +60,78 @@ const Navbar = () => {
     }
     //const authToken = localStorage.getItem('authToken');
     const loginId = localStorage.getItem('logedinUser')
+    const token = localStorage.getItem('authToken')
+    const toogleDropdown = () => {
+        setDropdown(!showDropdown)
+    }
+    const closeDropdown = () => {
+        setDropdown(false)
+    }
+    const handleSearchBar = () => {
+        setSearchBar(!showSearchBar)
+    }
 
     return (
         <>
-            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                <Link class="navbar-brand text-white  fs-2 ps-4" to="#"><em>Foody</em></Link>
-                <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto ">
-                        <li class="nav-item ">
-                            <Link class="nav-link text-white" to="/">Home <span class="sr-only"></span></Link>
+
+            <nav className='nav'>
+                <ul className='fs-3 m-2'>
+                    <Link to='/' className='text-black'><em>Happy Meal</em></Link>
+                </ul>
+                {windowSize.current > 576 &&
+                    <>
+                        {token &&
+                            <ul className='col-5 d-flex justify-content-end'>
+                                <Link to='/mycart'> <li><FontAwesomeIcon icon={faCartShopping} size='2x' className='me-4 text-black' /></li></Link>
+                                <li>
+                                    <FontAwesomeIcon icon={faUser} size='2x' className='me-3 text-black' onClick={toogleDropdown} />
+                                    {showDropdown && (
+                                        <ul className='dropdown' onClick={closeDropdown}>
+                                            <li><Link to={`/userdetails/${loginId}`} className='text-white '>Profile</Link></li>
+                                            <li><Link to='/login' onClick={handleLogOut} className='text-white'>Logout</Link ></li>
+                                        </ul>
+                                    )
+                                    }
+                                </li>
+                            </ul>
+                        }
+                        {!token &&
+                            <ul className='col-5 d-flex justify-content-end'>
+                                <Link to='/login'> <li><FontAwesomeIcon icon={faRightToBracket} size='2x' className='me-5 text-black' /></li></Link>
+                                <Link to='/signup'><li><FontAwesomeIcon icon={faUserPlus} size='2x' className='me-3 text-black' /></li> </Link>
+
+                            </ul>
+                        }
+                    </>
+                }
+                {windowSize.current <= 576 &&
+                    <>
+                        <li className='mobile'>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
+                            {showSearchBar && (
+                                <div className='input-wrapper'>
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                    <input placeholder='Search' value={search} onChange={handleChange} />
+                                </div>
+                            )
+
+                            }
+                            <FontAwesomeIcon icon={faBurger} size='2x' className='me-3 m-2 text-black' onClick={toogleDropdown} />
+
+                            {showDropdown && (
+                                <div className='menuDropdown' onClick={closeDropdown}>
+                                    <li><Link to={`/userdetails/${loginId}`} className='text-white p-3  '>Profile</Link></li>
+                                    <li><Link to='/mycart' className='text-white p-3' >My Cart</Link></li>
+                                    <li><Link to='/login' onClick={handleLogOut} className='text-white p-3'>Logout</Link ></li>
+                                </div>
+                            )
+
+                            }
                         </li>
+                    </>
 
-                        <li class="nav-item">
-                            <Link class="nav-link text-white" to="#">Pricing</Link>
-                        </li>
-
-                        {(localStorage.getItem("authToken")) ?
-                            <li class="nav-item ">
-                                <Link class="nav-link text-white" to="#">My Orders <span class="sr-only"></span></Link>
-                            </li>
-                            : ""}
-                    </ul>
-
-                    {(!localStorage.getItem('authToken')) ?
-
-                        <div className='me-4 d-flex'>
-
-                            <Link class="btn bg-primary text-white me-2" to="/login">Login</Link>
-
-                            <Link class="btn bg-primary text-white" to="/signup">Signup</Link>
-
-                        </div>
-                        : <div className='me-4 d-flex'>
-                            <Link class="btn bg-primary text-white me-2" to="mycart">MyCart</Link>
-                            <Link class="btn bg-primary text-white" to={`admin/itemupload`}>Upload Item</Link>
-                            <Link class="btn bg-primary text-white" to={`/userdetails/${loginId}`}>Profile</Link>
-                            <Link class="btn bg-primary text-white" onClick={handleLogOut} to="/">LogOut</Link>
-
-                        </div>
-                    }
-                </div>
-
-            </nav>
+                }
+            </nav >
         </>
     )
 }

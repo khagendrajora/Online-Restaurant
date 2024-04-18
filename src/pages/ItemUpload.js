@@ -54,6 +54,9 @@ const ItemUpload = () => {
             if (!values.item_price) {
                 errors.item_price = "Required"
             }
+            // if (!values.item_img) {
+            //     errors.item_img = "Required"
+            // }
             return errors
 
         },
@@ -67,7 +70,7 @@ const ItemUpload = () => {
         <>
             <ToastContainer theme='colored' position='top-right' />
 
-            <form onSubmit={formik.handleSubmit}  >
+            <form onSubmit={formik.handleSubmit} action="/stats" enctype="multipart/form-data" method="post" >
 
                 <div className="form-group">
                     <label htmlfor="title">Item Name</label>
@@ -106,10 +109,10 @@ const ItemUpload = () => {
                 </div>
                 {/* <div className="form-group">
                     <label htmlfor="file">Image</label>
-                    <input type="file" name='image' className="form-control" id="image"
+                    <input type="file" name='item_img' className="form-control" id="image"
                         onChange={formik.handleChange}
                         value={formik.image} />
-                     {formik.touched.item_price && formik.errors.item_price ? <div>{formik.errors.item_price}</div> : null} 
+                    {formik.touched.item_img && formik.errors.item_img ? <div>{formik.errors.item_img}</div> : null}
 
                 </div> */}
 

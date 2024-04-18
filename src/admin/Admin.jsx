@@ -21,9 +21,7 @@ export const Admin = () => {
                     <div className='content'>
                         Order List
                     </div>
-                    <div className='content'>
-                        Order List
-                    </div>
+
 
                 </div>
 
@@ -35,7 +33,7 @@ export const Admin = () => {
 
                 <div className='sub-container' onClick={handleDelete} style={{ backgroundColor: 'red' }}>
                     <div className='content'>
-                        Delete Food Item
+                        Food Items List
                     </div>
                 </div>
 

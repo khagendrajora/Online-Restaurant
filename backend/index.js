@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 //At first import from RoutePAge then use in middleware
 const createUser = require('./routes/UserRoute')
-const displaydata = require('./routes/DisplayDataRoute')
+
 const item = require('./routes/ItemRoute')
 const orderRoute = require('./routes/OrderRoute')
 const paymentRoute = require('./routes/PaymentRoute')
@@ -28,7 +28,7 @@ const paymentRoute = require('./routes/PaymentRoute')
 app.use(bodyParser.json())
 app.use('/public/uploads', express.static('public/uploads'))
 app.use('/api', createUser)
-app.use('/api', displaydata)
+
 app.use('/api', item)
 app.use('/api', orderRoute)
 app.use('/api', paymentRoute)

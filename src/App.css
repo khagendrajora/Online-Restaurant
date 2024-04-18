@@ -38,13 +38,163 @@
   }
 }
 
+.nav {
+  background-color: #34495E;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.nav ul {
+  list-style-type: none;
+  display: flex;
+  margin: 1rem 4rem 1rem 0;
+
+
+}
+
+.nav ul li {
+  position: relative;
+}
+
+.mobile {
+  position: relative;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+.dropdown li {
+  text-decoration: none;
+  margin-left: -20px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  padding: 1px 5px 2px 5px;
+
+}
+
+.dropdown {
+
+  background-color: #34495E;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 999;
+
+  border-style: none none outset none;
+
+}
+
+.menuDropdown {
+  background-color: #34495E;
+
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  z-index: 999;
+  width: 19rem;
+  margin-left: -12rem;
+  border-style: none none outset none;
+}
+
+.menuDropdown li {
+  margin-bottom: 30px;
+}
+
+.input-wrapper {
+
+  background-color: white;
+  width: 30%;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 15px;
+  height: 3rem;
+  padding: 0 15PX;
+  box-shadow: 0 0 8px #ddd;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.input-wrapper input {
+  background-color: transparent;
+  border: none;
+  /* height: 100%; */
+  font-size: 1.25rem;
+  width: 100%;
+  margin: -3px 0 0 5px;
+  outline: none;
+}
+
+.mobile .input-wrapper {
+  display: flex;
+  width: 15rem;
+  margin: auto;
+  margin-left: -10rem;
+  z-index: 999;
+  position: absolute;
+}
+
+/* card */
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px;
+  width: 100%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: larger;
+}
+
+.card-category {
+  font-size: small;
+}
+
+.card-description {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-text {
+  font-size: x-small;
+}
+
+
+
 .profile {
 
   display: flex;
   height: 500px;
   margin: auto;
   background-color: rgb(234, 225, 213);
-
 
 }
 
