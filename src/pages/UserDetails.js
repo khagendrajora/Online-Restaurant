@@ -26,24 +26,23 @@ export const UserDetails = () => {
 
     return (
         <>
-            <div className='profile'  >
-                <div className='body'>
-                    <div className='img'>
-                        <img src='' alt='userimage' style={{ "height": "200px" }} />
-                        <div className='btn d-flex'>
 
-                            <Link class="btn bg-success text-white me-2" to="#">Edit</Link>
-                            <Link class="btn bg-danger text-white me-2" to="#">Delete</Link>
-                        </div>
+            <div className='user-detail'>
+                <div className='user-image'>
+                    <img src='' alt='userimage' />
 
-                    </div>
-                    <div className='info'>
-                        <div><b>Name:</b>    {user.name} </div><hr />
-                        <div><b>Email:</b> {user.email}</div><hr />
-                        <div><b>Location:</b>   :{user.location}</div><hr />
+                </div>
+                <div className='user-info'>
+                    <div className='user-name mb-3'><span className='user-titles'>Name:</span>{user.name} </div>
+                    <div className='user-email mb-3'><span className='user-titles'>Email:</span>{user.email}</div>
+                    <div className='user-location mb-5'><span className='user-titles'>Location:</span>{user.location}</div>
+                    <div className='btn d-flex'>
+                        <Link class="btn bg-success text-white me-2" to="#">Edit</Link>
+                        <Link class="btn bg-danger text-white me-2" to="#">Delete</Link>
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

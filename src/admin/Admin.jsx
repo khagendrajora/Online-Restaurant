@@ -21,8 +21,6 @@ export const Admin = () => {
                     <div className='content'>
                         Order List
                     </div>
-
-
                 </div>
 
                 <div className='sub-container' onClick={handleAdd} style={{ backgroundColor: 'green' }}>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 export const Signup = () => {
-    // const navigate = useNavigate()
+
     const handleSubmit = async (values) => {
         const response = await fetch('http://localhost:5000/api/createUser', {
             method: 'POST',
@@ -18,13 +18,7 @@ export const Signup = () => {
         console.log(values)
         if (!response.ok) {
             alert('invalid')
-
-
         }
-        // if (response.ok) {
-
-        //     navigate('/login')
-        // }
     }
 
     const formik = useFormik({
@@ -66,9 +60,9 @@ export const Signup = () => {
     })
     return (
         <>
-            <div className='form-container' style={{ "height": "1000px" }} >
+            <div className='form-container' >
                 <form className='htmlForm-horizontal' onSubmit={formik.handleSubmit}>
-                    <div className='form-body' style={{ "height": "700px" }}>
+                    <div className='form-body'>
                         <div className="htmlForm-group ">
                             <label htmlFor="name">Name:</label>
                             <input type="text" className="control-label" name='name' placeholder="Enter name"
@@ -107,8 +101,8 @@ export const Signup = () => {
 
                         </div> */}
 
-                        <button type="submit" className="m-3 btn btn-success">Submit</button>
-                        <Link to='/login' className='m-3 btn btn-danger'>Already a user</Link>
+                        <button type="submit" className="m-3 btn btn-success">Sign Up</button>
+                        <Link to='/login' className='m-3 btn btn-danger'>Login</Link>
                     </div>
 
                 </form>

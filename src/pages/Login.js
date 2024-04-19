@@ -43,10 +43,11 @@ export const Login = () => {
   return (
     <>
       <div className='form-container' >
+
         <form onSubmit={formik.handleSubmit}>
+
           <div className='form-body'>
-
-
+            {/* <h1 className='page-name'>Add New Food</h1> */}
             <div className="htmlForm-group">
               <label htmlFor="email">Email address:</label>
               <input type="email" className="control-label" name='email' id="Email" aria-describedby="emailHelp" placeholder="Enter email"

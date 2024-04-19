@@ -21,7 +21,6 @@ const Navbar = () => {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-
                 const res = await axios.get(`${API}/itemlist`, {
 
                 }
@@ -36,8 +35,6 @@ const Navbar = () => {
                 )
                 setFilteredResult(filter)
             }
-
-
         }
         fetchItem()
     }, [])
@@ -55,8 +52,6 @@ const Navbar = () => {
                 console.log('signout', res)
             })
             .catch(err => console.log(err))
-
-
     }
     //const authToken = localStorage.getItem('authToken');
     const loginId = localStorage.getItem('logedinUser')

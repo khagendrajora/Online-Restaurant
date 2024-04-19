@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import Navbar from '../components/Navbar'
 
 
 export const Home = () => {
@@ -43,18 +44,12 @@ export const Home = () => {
     fetchItem()
   }, [])
 
-
-
-
-
-
   return (
     <>
       <Helmet>
         <title>Online Food Ordering App</title>
         <meta name="description" content="Order Foods online" />
       </Helmet>
-
       {windowSize.current > 576 &&
         <div className='input-wrapper'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />

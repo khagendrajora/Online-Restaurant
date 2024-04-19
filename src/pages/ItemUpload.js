@@ -69,45 +69,46 @@ const ItemUpload = () => {
     return (
         <>
             <ToastContainer theme='colored' position='top-right' />
+            <div className='uploadItem-container'>
 
-            <form onSubmit={formik.handleSubmit} action="/stats" enctype="multipart/form-data" method="post" >
+                <form className='upload-itemForm' onSubmit={formik.handleSubmit} action="/stats" enctype="multipart/form-data" method="post" >
+                    <h1 className='page-name'>Add New Food</h1>
+                    <div className="upload-itemform">
+                        <label htmlfor="item-name">Item Name</label>
+                        <input type="text" className="form-control" name='item_name' id="title" aria-describedby="emailHelp" placeholder="Name of the item"
+                            onChange={formik.handleChange}
+                            value={formik.name} />
+                        {formik.touched.item_name && formik.errors.item_name ? <div>{formik.errors.item_name}</div> : null}
 
-                <div className="form-group">
-                    <label htmlfor="title">Item Name</label>
-                    <input type="text" className="form-control" name='item_name' id="title" aria-describedby="emailHelp" placeholder="Name of the item"
-                        onChange={formik.handleChange}
-                        value={formik.name} />
-                    {formik.touched.item_name && formik.errors.item_name ? <div>{formik.errors.item_name}</div> : null}
+                    </div>
+                    <div className="upload-itemform">
+                        <label htmlfor="item-category">Item Category</label>
+                        <input type="text" name='item_category' className="form-control" id="category" placeholder="Item Category"
+                            onChange={formik.handleChange}
+                            value={formik.item_category} />
+                        {formik.touched.item_category && formik.errors.item_category ? <div>{formik.errors.item_category}</div> : null}
 
-                </div>
-                <div className="form-group">
-                    <label htmlfor="Category">Item Category</label>
-                    <input type="text" name='item_category' className="form-control" id="category" placeholder="Item Category"
-                        onChange={formik.handleChange}
-                        value={formik.item_category} />
-                    {formik.touched.item_category && formik.errors.item_category ? <div>{formik.errors.item_category}</div> : null}
+                    </div>
 
-                </div>
+                    <div className="upload-itemform">
+                        <label htmlfor="item-description">Item Description</label>
+                        <input type="text" name='item_description' className="form-control" id="description" placeholder="Item Description"
+                            onChange={formik.handleChange}
+                            value={formik.item_description} />
+                        {formik.touched.item_description && formik.errors.item_description ? <div>{formik.errors.item_description}</div> : null}
 
-                <div className="form-group">
-                    <label htmlfor="Description">Item Description</label>
-                    <input type="text" name='item_description' className="form-control" id="description" placeholder="Item Description"
-                        onChange={formik.handleChange}
-                        value={formik.item_description} />
-                    {formik.touched.item_description && formik.errors.item_description ? <div>{formik.errors.item_description}</div> : null}
-
-                </div>
+                    </div>
 
 
-                <div className="form-group">
-                    <label htmlfor="exampleInputPassword1">Item Price</label>
-                    <input type="number" name='item_price' className="form-control" id="price" placeholder="Item Price"
-                        onChange={formik.handleChange}
-                        value={formik.item_price} />
-                    {formik.touched.item_price && formik.errors.item_price ? <div>{formik.errors.item_price}</div> : null}
+                    <div className="upload-itemform">
+                        <label htmlfor="item-price">Item Price</label>
+                        <input type="number" name='item_price' className="form-control" id="price" placeholder="Item Price"
+                            onChange={formik.handleChange}
+                            value={formik.item_price} />
+                        {formik.touched.item_price && formik.errors.item_price ? <div>{formik.errors.item_price}</div> : null}
 
-                </div>
-                {/* <div className="form-group">
+                    </div>
+                    {/* <div className="form-group">
                     <label htmlfor="file">Image</label>
                     <input type="file" name='item_img' className="form-control" id="image"
                         onChange={formik.handleChange}
@@ -116,8 +117,9 @@ const ItemUpload = () => {
 
                 </div> */}
 
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
 
 
         </>

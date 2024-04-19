@@ -22,10 +22,6 @@ export const ItemDetails = () => {
     const userEmail = localStorage.getItem('logedinUserEmail')
     const userEmailId = localStorage.getItem('logedinUser')
 
-    // if (userEmail) {
-    //   const userEmail=
-
-    // }
     if (authToken) {
       const cartItem = JSON.parse(localStorage.getItem('cart')) || []
       //const cartEmail= JSON.parse(localStorage.getItem('cart'))
@@ -59,18 +55,21 @@ export const ItemDetails = () => {
   return (
     <>
       <ToastContainer theme='colored' position='top-right' />
-      <div className="container d-flex md-flex-column">
-        <div className="  ">
+      <div className="detail-container">
+        <div className="item-image">
           <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGZyaWVkJTIwcmljZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt={item.item_name} />
         </div>
         <div className="item-info">
-          <h2>{item.item_name}</h2><hr />
-          <h2>Price Rs.{item.item_price} <span className='ms-4' style={{ "fontStyle": "italic" }}>/ plate</span></h2><hr />
-          <h3>Category:{item.item_category}</h3><hr />
-          <p>{item.item_description}</p><hr />
-          <div className='my-2 d-flex justify-content-evenly'>
-            <button className='btn btn-warning' onClick={addToCart}>Add to Cart</button>
-            <button className='btn btn-success '>Buy</button>
+          <div className='item-name'>{item.item_name}</div>
+          <div className='price-category'>
+            <div className='item-price'>Price Rs.{item.item_price} <span className='' style={{ "fontStyle": "italic" }}>/ plate</span></div>
+            <div className='item-category'>Category:{item.item_category}</div>
+          </div>
+
+          <div className='item-description'>{item.item_description}</div>
+          <div className='item-btn'>
+            <button className='btn1 bg-warning hover:bg-success' onClick={addToCart}>Add to Cart</button>
+            <button className='btn1 bg-success '>Buy</button>
           </div>
         </div>
       </div>

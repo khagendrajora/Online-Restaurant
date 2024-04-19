@@ -17,7 +17,7 @@ const UpdateItem = () => {
     const [success, setSuccess] = useState(false)
 
 
-    useEffect(() => {
+    useEffect((id) => {
         // const id = params.data_id
         axios.get(`${API}itemdetails/${id}`)
             .then(res => {
@@ -30,9 +30,9 @@ const UpdateItem = () => {
             .catch(err => console.log(err))
 
 
-    }, [])
+    }, [id])
     const handleSubmit = async (event) => {
-        event.preventDefault()
+
         try {
             const formData = new FormData()
             formData.append('item_name', item_name)
@@ -55,7 +55,7 @@ const UpdateItem = () => {
             setError(err.response.data.err)
             setSuccess(false)
         }
-
+        handleSubmit()
     }
     return (
         <>
@@ -82,7 +82,7 @@ const UpdateItem = () => {
                             name="item_price"
                             id="price"
                             className="form-control"
-                            onChange={e => setItemPrice(e.target.value)}
+                            // onChange={e => setItemPrice(e.target.value)}
                             value={item_price}
                         />
                     </div>

@@ -71,8 +71,6 @@ const MyCart = () => {
         setCartItem(filterCart)
         localStorage.setItem(('cart'), JSON.stringify(filterCart))
         toast.success('Item Removed form the cart')
-
-
     }
 
     //payment integration
@@ -104,64 +102,65 @@ const MyCart = () => {
 
     return (
         <>
-            <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="d-flex column align-items-center">
-                    <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
+            {/* <div className=""> */}
+            <div className="col d-flex flex-column align-items-center">
+                <h1 className="">Shopping Cart</h1>
+                <h6 className="">{mycartItem.length} items</h6>
+            </div>
+            <div className='row d-flex flex-direction-row justify-content-around align-items-center'>
 
-                </div>
-                <div>
 
-                    <h6 className="">{mycartItem.length} items</h6>
-                </div>
-                {mycartItem.length > 0 ?
-                    mycartItem.map((item, i) => (
-                        <Fragment key={i}>
+                {mycartItem.length > 0 ? (
+                    <div className='col-5'>
+                        {mycartItem.map((item, i) => (
+                            <Fragment key={i}>
 
-                            <div className="col-lg-8">
-                                <div className="p-5">
+                                <div className=" ">
+                                    <div className="p-1">
+                                        <hr className="my-4 w-75" />
+                                        <div className="row d-flex align-items-center">
 
-                                    <hr className="my-4" />
-                                    <div className="row mb-4 d-flex justify-content-between align-items-center">
-                                        <div className="col-md-2 col-lg-2 col-xl-2">
-                                            <img
-                                                src=""
-                                                className="img-fluid rounded-3" alt="" />
-                                        </div>
-                                        <div className="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 className="text-muted">{item.name}</h6>
-                                            <h6 className="text-black mb-0">{item.category}</h6>
-                                        </div>
+                                            <button className='btn col-1 btn-danger' onClick={() => Delete(item.id)}><FaTrash /></button>
 
-                                        <div className='col-md-3 col-lg-3 col-xl-2 d-flex'>
-                                            <button className='btn bg-primary ' onClick={() => IncreaseQty(i, item.id, item.price * item.quantity, item.price)}>+ </button>
-                                            <input type='number' name='qty' value={item.quantity} readOnly className='form-control' />
-                                            <button className='btn bg-danger' onClick={() => DecreaseQty(i, item.id, item.totalPrice, item.price)}>-</button>
-                                        </div>
 
-                                        <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 className="mb-0">Rs.{item.price}</h6>
-                                        </div>
-                                        <div className='buttons d-flex ' style={{ justifyContent: 'space-between' }}>
-                                            <div className='col-md-3 col-lg-2 col-xl-2 offset-lg-1 mr-2'>
-                                                <button className='btn btn-danger' onClick={() => Delete(item.id)}><FaTrash /></button>
-                                                {/* <button className='btn btn-success' onClick={() => Edit(i, item._id)}><FaPenAlt /></button> */}
+                                            <div className="col-md-2 col-lg-2 col-xl-2">
+                                                <img
+                                                    src=""
+                                                    className="img-fluid rounded-3" alt="" />
                                             </div>
-                                            <div className='total_Price '><h5>Total Price:<br />
-                                                {item.quantity}*{item.price}= Rs. {item.quantity * item.price} </h5></div>
+                                            <div className="col-2">
+                                                <h6 className="text-muted">{item.name}</h6>
+                                                <h6 className="text-black mb-0">{item.category}</h6>
+
+                                            </div>
+                                            <div className="col-2">
+                                                <h6 className="mb-0">Rs.{item.price}</h6>
+                                            </div>
+
+                                            <div className='col-md-4  col-xl-3 d-flex'>
+                                                <button className='btn bg-primary ' onClick={() => IncreaseQty(i, item.id, item.price * item.quantity, item.price)}>+ </button>
+                                                <input type='number' name='qty' value={item.quantity} readOnly className='form-control' />
+                                                <button className='btn bg-danger' onClick={() => DecreaseQty(i, item.id, item.totalPrice, item.price)}>-</button>
+                                            </div>
+
+
+                                            <div className='total_Price col-3 mt-3'><h5>Total Price:<br />
+                                                {item.quantity}*{item.price}= Rs. {item.quantity * item.price} </h5>
+                                            </div>
+
                                         </div>
+                                        <hr className="my-4 w-75" />
 
                                     </div>
-                                    <hr className="my-4" />
-
                                 </div>
-                            </div>
-
-
-                        </Fragment>
-                    )) : <div>
-                        <h1 className='d-flex justify-conten-center'>Your Cart is empty</h1>
+                            </Fragment>
+                        ))}
                     </div>
+                ) : <div>
+                    <h1 className='d-flex justify-conten-center'>Your Cart is empty</h1>
+                </div>
                 }
+
                 <div className="col-lg-4 bg-grey">
                     <div className="p-5">
                         <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
@@ -183,7 +182,7 @@ const MyCart = () => {
                 <div className="pt-5">
                     <Link to='/' className=' ' style={{ "fontFamily": 'monospace', "color": 'GrayText' }}  >Back To Home</Link>
                 </div>
-            </div >
+            </div>
         </>
     )
 
