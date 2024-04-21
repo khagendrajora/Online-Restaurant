@@ -20,14 +20,19 @@ export const Login = () => {
 
     } if (response.ok) {
       const data = await response.json()
+      localStorage.setItem('loginedUserDetail', JSON.stringify(data))
       localStorage.setItem("authToken", data.authToken)
       localStorage.setItem("logedinUserEmail", data.email)
       localStorage.setItem("logedinUser", data.id)
 
       console.log(localStorage.getItem("authToken"))
       console.log(localStorage.getItem("logedinUser"))
+      if (data && data.role === 1) {
+        navigate('/admin')
+      } else {
+        navigate('/')
+      }
 
-      navigate('/')
     }
   }
   const formik = useFormik({

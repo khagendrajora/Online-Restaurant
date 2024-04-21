@@ -108,3 +108,20 @@ exports.userOrderList = async (req, res) => {
     }
     res.send(userorderlist)
 }
+
+
+//delete order
+exports.deleteOrder = async (req, res) => {
+    const id = req.params.id
+    OrderModel.findByIdAndDelete(id)
+        .then((item) => {
+            if (!item) {
+                return res.status(403).json({ error: 'Order not found' })
+            }
+            else {
+                return res.status(200).json({ message: 'order deleted' })
+            }
+        }).catch(err => {
+            return res.status(400).json({ error: err })
+        })
+}

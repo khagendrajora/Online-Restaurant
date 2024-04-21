@@ -29,7 +29,7 @@ export const ItemList = () => {
     }
 
     const Edit = id => {
-        navigate(`../admin/itemupdate/${id}`)
+        navigate(`/admin/itemupdate/${id}`)
 
 
     }

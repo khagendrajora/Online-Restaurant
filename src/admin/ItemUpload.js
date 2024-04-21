@@ -70,7 +70,6 @@ const ItemUpload = () => {
         <>
             <ToastContainer theme='colored' position='top-right' />
             <div className='uploadItem-container'>
-
                 <form className='upload-itemForm' onSubmit={formik.handleSubmit} action="/stats" enctype="multipart/form-data" method="post" >
                     <h1 className='page-name'>Add New Food</h1>
                     <div className="upload-itemform">

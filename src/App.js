@@ -13,7 +13,7 @@ import { ResetPassword } from './auth/ResetPassword';
 import { Admin } from './admin/Admin';
 import { OrderList } from './admin/OrderList';
 import Layouts from './components/Layouts';
-import ItemUpload from './pages/ItemUpload';
+
 import { ItemList } from './admin/ItemList';
 import UpdateItem from './admin/UpdateItem';
 import { Helmet } from 'react-helmet';
@@ -21,6 +21,9 @@ import { Helmet } from 'react-helmet';
 // import ConfirmOrder from './pages/ConfirmOrder';
 import Success from './pages/Success';
 import Failed from './pages/Failed';
+import EmailCheckMessage from './pages/EmailCheckMessage';
+import ItemUpload from './admin/ItemUpload';
+import { AdminDashboard } from './admin/AdminDashboard';
 // import { PaymentElement } from './pages/PaymentElement';
 
 
@@ -48,29 +51,19 @@ function App() {
             <Route path='mycart' element={<MyCart />} />
             <Route path='success' element={<Success />} />
             <Route path='failed' element={<Failed />} />
-            {/* <Route path='payment' element={<PaymentElement />} /> */}
-
+            <Route path='emailcheckmessage' element={<EmailCheckMessage />} />
             <Route path='resetpassword/:token' element={<ResetPassword />} />
-            <Route path='admin' element={<Admin />} />
-            <Route path='admin/orderlist' element={<OrderList />} />
-            <Route path='admin/itemupload' element={<ItemUpload />} />
-            <Route path='admin/itemlist' element={<ItemList />} />
-            <Route path='admin/itemupdate/:itemId' element={<UpdateItem />} />
-            {/* <Route path='checkout' element={<CheckOut />} /> */}
-            {/* <Route path='confirmorder' element={<ConfirmOrder />} /> */}
-            {/* <Route path='admin' element={<Admin />} /> */}
           </Route>
 
-          {/* 
-          <Route path='admin/' element={<Admin />} >
+          <Route path='admin/' element={<AdminDashboard />} >
+            <Route path='dashboard' element={<Admin />} />
             <Route path='orderlist' element={<OrderList />} />
             <Route path='itemupload' element={<ItemUpload />} />
-          </Route> */}
-
-
-
+            <Route path='itemlist' element={<ItemList />} />
+            <Route path='itemupdate/:itemId' element={<UpdateItem />} />
+          </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter >
 
     </>
   );

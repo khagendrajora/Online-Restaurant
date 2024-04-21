@@ -17,7 +17,7 @@ export const Signup = () => {
         })
         console.log(values)
         if (!response.ok) {
-            alert('invalid')
+            console.log(response)
         }
     }
 
@@ -36,27 +36,27 @@ export const Signup = () => {
             )
         },
 
-        validate: values => {
-            let errors = {}
-            if (!values.name) {
-                errors.name = "Required"
-            }
-            if (!values.location) {
-                errors.location = "Required"
-            }
+        // validate: values => {
+        //     let errors = {}
+        //     if (!values.name) {
+        //         errors.name = "Required"
+        //     }
+        //     if (!values.location) {
+        //         errors.location = "Required"
+        //     }
 
-            if (!values.email) {
-                errors.email = "Required"
-            }
+        //     if (!values.email) {
+        //         errors.email = "Required"
+        //     }
 
-            if (!values.password) {
-                errors.password = "Required"
-            }
+        //     if (!values.password) {
+        //         errors.password = "Required"
+        //     }
 
-            return errors
+        //     return errors
 
-        },
-        enableReinitialize: true,
+        // },
+        // enableReinitialize: true,
     })
     return (
         <>

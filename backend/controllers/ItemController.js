@@ -7,7 +7,7 @@ const Item = require('../models/Product')
 //     // if (!item) {
 //     //     return res.status(400).json({ error: 'something went wrong' })
 //     // }
-//     res.send(item)
+//     res.send(item
 // }
 
 exports.ItemUpload = async (req, res) => {

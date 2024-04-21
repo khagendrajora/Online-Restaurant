@@ -1,17 +1,19 @@
+
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
 
 export const Admin = () => {
     const navigate = useNavigate()
     const handleAdd = () => {
-        navigate('itemupload')
+        navigate('/admin/itemupload')
 
     }
     const handleOrder = () => {
-        navigate('orderlist')
+        navigate('/admin/orderlist')
     }
     const handleDelete = () => {
-        navigate('itemlist')
+        navigate('/admin/itemlist')
     }
     return (
         <>

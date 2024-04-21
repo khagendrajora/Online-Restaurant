@@ -1,19 +1,21 @@
 import { useFormik } from 'formik'
 import React from 'react'
-
 import { API } from '../Config'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 
 export const ForgetPasswort = () => {
-
+    const navigate = useNavigate()
     const handleSubmit = async (values) => {
         try {
             await axios.post(`${API}/forgetpwd`, { email: values.email })
+            navigate('/emailcheckmessage')
         } catch (error) {
             console.error(error)
         }
+        // navigate('/emailcheckmessage')
     }
 
     const formik = useFormik({
@@ -21,6 +23,7 @@ export const ForgetPasswort = () => {
             email: '', // Set initial values for your form fields
         },
         onSubmit: handleSubmit,
+
     });
 
 

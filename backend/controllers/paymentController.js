@@ -23,8 +23,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 exports.payment = async (req, res) => {
     const { products } = req.body
     const totalBill = req.body
-    console.log(totalBill)
-    console.log(products)
+    // console.log(totalBill)
+    // console.log(products)
     const lineItems = products.map((product) => ({
         price_data: {
             currency: 'npr',

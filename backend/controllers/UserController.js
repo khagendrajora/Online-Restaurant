@@ -126,7 +126,9 @@ exports.login = async (req, res) => {
         }
         const data = {
             user: {
-                id: userData.id
+                id: userData.id,
+                role: userData.role
+
             }
         }
         const authToken = jwt.sign({ data }, jwtSecret)
@@ -283,7 +285,7 @@ exports.requireUser = (req, res, next) => {
             return res.status(401).json({ error: 'unauthorized' })
         }
         //check for user role
-        if (req.auth.role === "0") {
+        if (req.auth.role === "1") {
             next();
         }
         else {

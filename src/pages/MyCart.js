@@ -79,7 +79,6 @@ const MyCart = () => {
         const body = {
             products: mycartItem,
             totalBill: totalBill
-
         }
         const headers = {
             "Content-Type": "application/json"
@@ -102,27 +101,20 @@ const MyCart = () => {
 
     return (
         <>
-            {/* <div className=""> */}
             <div className="col d-flex flex-column align-items-center">
                 <h1 className="">Shopping Cart</h1>
                 <h6 className="">{mycartItem.length} items</h6>
             </div>
             <div className='row d-flex flex-direction-row justify-content-around align-items-center'>
-
-
                 {mycartItem.length > 0 ? (
                     <div className='col-5'>
                         {mycartItem.map((item, i) => (
                             <Fragment key={i}>
-
                                 <div className=" ">
                                     <div className="p-1">
                                         <hr className="my-4 w-75" />
                                         <div className="row d-flex align-items-center">
-
                                             <button className='btn col-1 btn-danger' onClick={() => Delete(item.id)}><FaTrash /></button>
-
-
                                             <div className="col-md-2 col-lg-2 col-xl-2">
                                                 <img
                                                     src=""
@@ -131,19 +123,15 @@ const MyCart = () => {
                                             <div className="col-2">
                                                 <h6 className="text-muted">{item.name}</h6>
                                                 <h6 className="text-black mb-0">{item.category}</h6>
-
                                             </div>
                                             <div className="col-2">
                                                 <h6 className="mb-0">Rs.{item.price}</h6>
                                             </div>
-
                                             <div className='col-md-4  col-xl-3 d-flex'>
                                                 <button className='btn bg-primary ' onClick={() => IncreaseQty(i, item.id, item.price * item.quantity, item.price)}>+ </button>
                                                 <input type='number' name='qty' value={item.quantity} readOnly className='form-control' />
                                                 <button className='btn bg-danger' onClick={() => DecreaseQty(i, item.id, item.totalPrice, item.price)}>-</button>
                                             </div>
-
-
                                             <div className='total_Price col-3 mt-3'><h5>Total Price:<br />
                                                 {item.quantity}*{item.price}= Rs. {item.quantity * item.price} </h5>
                                             </div>
@@ -160,20 +148,15 @@ const MyCart = () => {
                     <h1 className='d-flex justify-conten-center'>Your Cart is empty</h1>
                 </div>
                 }
-
                 <div className="col-lg-4 bg-grey">
                     <div className="p-5">
                         <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                         <hr className="my-4" />
-
                         <h2>Total Units: {mycartItem.reduce((ac, item) => ac + item.quantity, 0)}</h2>
                         <hr className="my-4" />
                         <div className="d-flex justify-content-between mb-5">
                             <h2 className="text-uppercase">Total Bill</h2>
-
                             <h2>Rs. {mycartItem.reduce((totalBill, item) => totalBill + item.totalPrice, 0)}</h2>
-
-
                         </div>
                         <button type="button" className="btn btn-dark btn-block btn-lg" onClick={makePayment}
                             data-mdb-ripple-color="dark">Confirm Order</button>

@@ -9,15 +9,14 @@ const bodyParser = require('body-parser')
 
 const port = 5000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
 
 
 
 //At first import from RoutePAge then use in middleware
 const createUser = require('./routes/UserRoute')
-
 const item = require('./routes/ItemRoute')
 const orderRoute = require('./routes/OrderRoute')
 const paymentRoute = require('./routes/PaymentRoute')
@@ -28,7 +27,6 @@ const paymentRoute = require('./routes/PaymentRoute')
 app.use(bodyParser.json())
 app.use('/public/uploads', express.static('public/uploads'))
 app.use('/api', createUser)
-
 app.use('/api', item)
 app.use('/api', orderRoute)
 app.use('/api', paymentRoute)

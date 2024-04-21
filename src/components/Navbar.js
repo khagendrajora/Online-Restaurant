@@ -1,14 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { API } from '../Config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faRightToBracket, faUserPlus, faBurger, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
+import { isAuthenticated } from '../auth/authIndex';
 
 
 
 const Navbar = () => {
+    const navigate = useNavigate()
+    const user = isAuthenticated()
     const [showDropdown, setDropdown] = useState(false)
     const [showSearchBar, setSearchBar] = useState(false)
     const [filteredResult, setFilteredResult] = useState([])
@@ -66,6 +69,15 @@ const Navbar = () => {
         setSearchBar(!showSearchBar)
     }
 
+    // const redirect = () => {
+    //     console.log(user)
+    //     if (user && user.role === "0") {
+    //         return navigate('/admin')
+    //     }
+    //     else {
+    //         navigate('/')
+    //     }
+    // }
     return (
         <>
 
@@ -77,17 +89,24 @@ const Navbar = () => {
                     <>
                         {token &&
                             <ul className='col-5 d-flex justify-content-end'>
-                                <Link to='/mycart'> <li><FontAwesomeIcon icon={faCartShopping} size='2x' className='me-4 text-black' /></li></Link>
+
                                 <li>
                                     <FontAwesomeIcon icon={faUser} size='2x' className='me-3 text-black' onClick={toogleDropdown} />
                                     {showDropdown && (
-                                        <ul className='dropdown' onClick={closeDropdown}>
+                                        <div className='dropdown' onClick={closeDropdown}>
+                                            {user && user.role === "1" &&
+                                                <li><Link to='/admin/dashboard' className='text-white'>Admin&nbsp;Dashboard</Link></li>
+
+                                            }
                                             <li><Link to={`/userdetails/${loginId}`} className='text-white '>Profile</Link></li>
                                             <li><Link to='/login' onClick={handleLogOut} className='text-white'>Logout</Link ></li>
-                                        </ul>
+                                        </div>
                                     )
                                     }
                                 </li>
+                                <Link to='/mycart'> <li><FontAwesomeIcon icon={faCartShopping} size='2x' className='me-4 text-black' /></li></Link>
+
+
                             </ul>
                         }
                         {!token &&
@@ -109,18 +128,20 @@ const Navbar = () => {
                                     <input placeholder='Search' value={search} onChange={handleChange} />
                                 </div>
                             )
-
                             }
                             <FontAwesomeIcon icon={faBurger} size='2x' className='me-3 m-2 text-black' onClick={toogleDropdown} />
 
                             {showDropdown && (
                                 <div className='menuDropdown' onClick={closeDropdown}>
+                                    {user && user.role === "0" &&
+                                        <li><Link to='/admin/dashboard' className='text-white'>Admin&nbsp;Dashboard</Link></li>
+
+                                    }
                                     <li><Link to={`/userdetails/${loginId}`} className='text-white p-3  '>Profile</Link></li>
                                     <li><Link to='/mycart' className='text-white p-3' >My Cart</Link></li>
                                     <li><Link to='/login' onClick={handleLogOut} className='text-white p-3'>Logout</Link ></li>
                                 </div>
                             )
-
                             }
                         </li>
                     </>
