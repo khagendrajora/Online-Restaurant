@@ -28,19 +28,19 @@ export const ResetPassword = () => {
 
     return (
         <>
-            <Navbar />
+
             <form onSubmit={formik.handleSubmit}>
 
                 <div className='container'>
                     <h2>New Password</h2>
                     <div className='mb-2'>
-                        <label htmlFor='password'>New Password</label>
+                        <label htmlFor='password'>New Password&nbsp;&nbsp;</label>
                         <input type='password' className="control-label" name='password' id='password'
                             value={formik.password} onChange={formik.handleChange}
                         />
                     </div>
                     <div className='mb-2'>
-                        <button type='submit' className='btn byn-primary'>Send</button>
+                        <button type='submit' className='btn btn-success'>Send</button>
                     </div>
                 </div>
             </form>

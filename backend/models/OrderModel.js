@@ -24,6 +24,10 @@ const orderSchema = new mongoose.Schema({
         type: ObjectId,
         required: true,
         ref: 'UserModel'
+    },
+    contact: {
+        type: Number,
+        required: true
     }
 }, { timestamps: true })
 module.exports = mongoose.model('OrderModel', orderSchema)

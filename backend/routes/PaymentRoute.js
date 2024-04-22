@@ -1,5 +1,5 @@
 const express = require('express')
-const { payment } = require('../controllers/paymentController')
+const { payment, paymentDirect } = require('../controllers/paymentController')
 // const { processPayment, sendStripeApi } = require('../controllers/paymentController')
 const router = express.Router()
 
@@ -7,5 +7,6 @@ const router = express.Router()
 // router.get('/stripeapi', sendStripeApi)
 
 router.post('/create-checkout-secession', payment)
+router.post('/create-checkout-secessions', paymentDirect)
 
 module.exports = router

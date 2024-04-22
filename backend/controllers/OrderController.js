@@ -34,7 +34,8 @@ exports.postOrder = async (req, res) => {
         shippingAddress1: req.body.shippingAddress1,
         totalPrice: totalPrice,
         user: req.body.user,
-        quantity: orderItemIds.quantity
+        quantity: orderItemIds.quantity,
+        contact: req.body.contact
     })
 
     order = await order.save()

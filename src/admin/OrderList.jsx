@@ -1,11 +1,14 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { API } from '../Config'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 export const OrderList = () => {
     const [orderItem, setOrderItem] = useState([])
+    const windowSize = useRef(window.innerWidth)
 
     useEffect(() => {
         const fetchOrder = async () => {
@@ -54,6 +57,12 @@ export const OrderList = () => {
     return (
         <>
             <ToastContainer theme='colored' color='green' position='top-center' />
+            {windowSize.current > 576 &&
+                <div className='input-wrapper'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <input placeholder='Search' />
+                </div>
+            }
             <div className='order-container'>
                 {
                     orderItem && orderItem.length > 0 ? (

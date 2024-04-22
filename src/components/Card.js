@@ -33,10 +33,10 @@ const Card = (props) => {
             //const cartEmail= JSON.parse(localStorage.getItem('cart'))
             const NewCartItem = {
                 id: item._id,
-                name: item.item_name,
-                category: item.item_category,
-                description: item.item_description,
-                price: item.item_price,
+                item_name: item.item_name,
+                item_category: item.item_category,
+                item_description: item.item_description,
+                item_price: item.item_price,
                 userEmail: userEmail,
                 userId: userEmailId,
                 quantity: 1,
@@ -51,7 +51,7 @@ const Card = (props) => {
             } else {
                 cartItem.push(NewCartItem)
                 localStorage.setItem('cart', JSON.stringify(cartItem))
-                toast.success(`${NewCartItem.name} added to cart`)
+                toast.success(`${NewCartItem.item_name} added to cart`)
             }
         }
         else {

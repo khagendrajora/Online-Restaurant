@@ -1,10 +1,15 @@
 
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
 export const Admin = () => {
     const navigate = useNavigate()
+
+
     const handleAdd = () => {
         navigate('/admin/itemupload')
 

@@ -121,19 +121,18 @@ const MyCart = () => {
                                                     className="img-fluid rounded-3" alt="" />
                                             </div>
                                             <div className="col-2">
-                                                <h6 className="text-muted">{item.name}</h6>
-                                                <h6 className="text-black mb-0">{item.category}</h6>
+                                                <h6 className="text-muted">{item.item_name}</h6>
+                                                <h6 className="text-black mb-0">{item.item_category}</h6>
                                             </div>
                                             <div className="col-2">
-                                                <h6 className="mb-0">Rs.{item.price}</h6>
+                                                <h6 className="mb-0">Rs.{item.item_price}</h6>
                                             </div>
                                             <div className='col-md-4  col-xl-3 d-flex'>
-                                                <button className='btn bg-primary ' onClick={() => IncreaseQty(i, item.id, item.price * item.quantity, item.price)}>+ </button>
+                                                <button className='btn bg-primary ' onClick={() => IncreaseQty(i, item.id, item.item_price * item.quantity, item.item_price)}>+ </button>
                                                 <input type='number' name='qty' value={item.quantity} readOnly className='form-control' />
-                                                <button className='btn bg-danger' onClick={() => DecreaseQty(i, item.id, item.totalPrice, item.price)}>-</button>
+                                                <button className='btn bg-danger' onClick={() => DecreaseQty(i, item.id, item.totalPrice, item.item_price)}>-</button>
                                             </div>
-                                            <div className='total_Price col-3 mt-3'><h5>Total Price:<br />
-                                                {item.quantity}*{item.price}= Rs. {item.quantity * item.price} </h5>
+                                            <div className='total_Price col-3 mt-3'><h5>Total Price: {item.quantity}*{item.item_price}= Rs. {item.quantity * item.item_price} </h5>
                                             </div>
 
                                         </div>

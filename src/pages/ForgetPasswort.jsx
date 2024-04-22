@@ -33,12 +33,12 @@ export const ForgetPasswort = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <h2>Forget Password</h2>
                     <div className='mb-2'>
-                        <label htmlFor='email'>Email</label>
+                        <label htmlFor='email'>Email&nbsp;&nbsp;</label>
                         <input type='email' className="control-label" name='email' id='Email'
                             value={formik.email} onChange={formik.handleChange} />
                     </div>
                     <div className='mb-2'>
-                        <button type='submit' className='btn byn-primary'>Send Password reset link</button>
+                        <button type='submit' className='btn btn-success'>Send Password reset link</button>
                     </div>
                 </form>
             </div>

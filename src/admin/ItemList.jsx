@@ -1,12 +1,16 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { API } from '../Config'
 import { FaPenAlt, FaTrash } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 export const ItemList = () => {
+
+    const windowSize = useRef(window.innerWidth)
     const [item, setitem] = useState([])
     const navigate = useNavigate()
     useEffect(() => {
@@ -36,6 +40,13 @@ export const ItemList = () => {
     return (
         <>
             <ToastContainer theme='colored' position='top-center' />
+
+            {windowSize.current > 576 &&
+                <div className='input-wrapper'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <input placeholder='Search' />
+                </div>
+            }
             <div className='item-list'>
                 <table className='table table-bordered table-striped'>
                     <thead>
