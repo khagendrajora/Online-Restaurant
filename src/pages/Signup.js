@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFormik, } from 'formik'
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 
 
@@ -18,6 +19,10 @@ export const Signup = () => {
         console.log(values)
         if (!response.ok) {
             console.log(response)
+            toast.error('Failed to create Account')
+        } else {
+            toast.success("Account Created Sucessfully")
+            toast.success("Check Your Email")
         }
     }
 
@@ -36,30 +41,11 @@ export const Signup = () => {
             )
         },
 
-        // validate: values => {
-        //     let errors = {}
-        //     if (!values.name) {
-        //         errors.name = "Required"
-        //     }
-        //     if (!values.location) {
-        //         errors.location = "Required"
-        //     }
 
-        //     if (!values.email) {
-        //         errors.email = "Required"
-        //     }
-
-        //     if (!values.password) {
-        //         errors.password = "Required"
-        //     }
-
-        //     return errors
-
-        // },
-        // enableReinitialize: true,
     })
     return (
         <>
+            <ToastContainer theme='colored' position='top-center' />
             <div className='form-container' >
                 <form className='htmlForm-horizontal' onSubmit={formik.handleSubmit}>
                     <div className='form-body'>
@@ -88,7 +74,7 @@ export const Signup = () => {
                         </div>
                         <div className="htmlForm-group ">
                             <label htmlFor="password">Password</label>
-                            <input type="text" className="control-label" name='password' id="Password" placeholder="Password"
+                            <input type="password" className="control-label" name='password' id="Password" placeholder="Password"
                                 onChange={formik.handleChange}
                                 value={formik.password} />
                             {formik.touched.name && formik.errors.password ? <div>{formik.errors.password}</div> : null}

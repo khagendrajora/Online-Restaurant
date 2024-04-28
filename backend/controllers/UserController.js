@@ -114,7 +114,7 @@ exports.login = async (req, res) => {
     try {
         let userData = await User.findOne({ email })
         if (!userData) {
-            return res.status(400).json({ error: 'Invalid info' })
+            return res.status(400).json({ error: 'Invalid Email' })
         }
         const pwdCompare = await bcrypt.compare(req.body.password, userData.password)
         if (!pwdCompare) {
@@ -170,6 +170,7 @@ exports.forgetPwd = async (req, res) => {
         .then(async data => {
             if (!data) {
                 return res.status(400).json({ error: "email not present in DB" })
+
             }
             let token = new Token({
                 token: crypto.randomBytes(16).toString('hex'),
@@ -189,7 +190,10 @@ exports.forgetPwd = async (req, res) => {
                 html: `
                 <a href='${url}'>Click to reset password</a>`
             })
-        }).catch(err => {
+
+        },
+
+        ).catch(err => {
             return res.status(400).json({ err: 'failed' })
         })
 
@@ -292,4 +296,57 @@ exports.requireUser = (req, res, next) => {
             return res.status(403).json({ error: 'you are not authorized ' })
         }
     })
+}
+
+exports.userEdit = async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        location: req.body.location,
+        email: req.body.email,
+        isVerified: false
+
+    }, { new: true }
+    )
+
+    let token = new Token({
+        token: crypto.randomBytes(16).toString('hex'),
+        userId: user._id
+    })
+    token = await token.save()
+    if (!token) {
+        return res.status(400).json({ error: 'failed to generate token' })
+    }
+
+    const url = process.env.FRONTEND_URL + '\/email\/confirmation\/' + token.token
+    sendEmail({
+        from: 'no-reply@foody.com',
+        to: user.email,
+        subject: "Email Verification Link",
+        text: `Hello \n Please verify your email by clicking below \n\n
+        http://${req.headers.host}/api/confirmation/${token.token} `,
+        html: `
+        <h1>Verify your Email</h1>
+        <a href='${url}'>Click to verify your email</a>`
+
+    })
+
+    if (!user) {
+        return res.status(400).json({ error: "update failed" })
+    }
+    res.send(user)
+}
+
+exports.deleteUser = async (req, res) => {
+    const id = req.params.id
+    User.findByIdAndDelete(id)
+        .then((user) => {
+            if (!user) {
+                return res.status(403).json({ error: 'item not found' })
+            }
+            else {
+                return res.status(200).json({ message: "item Deleted" })
+            }
+        }).catch(err => {
+            return res.status(400).json({ error: err })
+        })
 }

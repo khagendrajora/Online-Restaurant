@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 // import { useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 // import axios from 'axios';
-import { API } from '../Config';
+import { API, IMG_URL } from '../Config';
 
 
 const MyCart = () => {
@@ -13,6 +13,7 @@ const MyCart = () => {
     const [cartItem, setCartItem] = useState([])
     const [mycartItem, setMyCartItem] = useState([])
     const [totalBill, setTotalBill] = useState('')
+    // const [order, setOrder] = useState(false)
 
 
     useEffect(() => {
@@ -32,13 +33,15 @@ const MyCart = () => {
                 setTotalBill(totalBill)
                 setMyCartItem(cart)
                 localStorage.setItem('mycartItem', JSON.stringify(cart))
-                // localStorage.setItem('totalBill', JSON.stringify(TotalBill))
-                // console.log(cartItem)
-                // console.log(cart)
+                localStorage.setItem('totalBill', JSON.stringify(totalBill))
+
+
+
             } else {
                 console.log('not found')
             }
         }
+
 
 
     }, [cartItem])
@@ -75,15 +78,16 @@ const MyCart = () => {
 
     //payment integration
     const makePayment = async () => {
+        // setOrder(true)
         const stripe = await loadStripe('pk_test_51NXj0DFEiZnfC2Vh61hPOfvAhjnFvEAOpmGcUaE58FD0sigvCVNqrv5Dv78Y3mzl2lw0t6MnMZO62CShxTQ0sFjO00nCIk6o7S')
         const body = {
-            products: mycartItem,
-            totalBill: totalBill
+            products: mycartItem
+
         }
         const headers = {
             "Content-Type": "application/json"
         }
-        const response = await fetch(`${API}/create-checkout-secession`, {
+        const response = await fetch('http://localhost:5000/api/create-checkout-secession', {
             method: "POST",
             headers: headers,
             body: JSON.stringify(body)
@@ -98,6 +102,11 @@ const MyCart = () => {
         }
 
     }
+
+    // useEffect(() => {
+
+
+    // }, [order])
 
     return (
         <>
@@ -117,7 +126,7 @@ const MyCart = () => {
                                             <button className='btn col-1 btn-danger' onClick={() => Delete(item.id)}><FaTrash /></button>
                                             <div className="col-md-2 col-lg-2 col-xl-2">
                                                 <img
-                                                    src=""
+                                                    src={`${IMG_URL}/${item.item_img}`}
                                                     className="img-fluid rounded-3" alt="" />
                                             </div>
                                             <div className="col-2">

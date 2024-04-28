@@ -10,6 +10,13 @@ export const OrderList = () => {
     const [orderItem, setOrderItem] = useState([])
     const windowSize = useRef(window.innerWidth)
 
+    const [filteredResult, setFilteredResult] = useState([])
+    const [search, setSearch] = useState('')
+
+    const handleChange = (e) => {
+        setSearch(e.target.value)
+    }
+
     useEffect(() => {
         const fetchOrder = async () => {
             try {
@@ -21,6 +28,7 @@ export const OrderList = () => {
                     }
                 }
                 )
+
                 setOrderItem(response.data)
 
             }
@@ -30,6 +38,17 @@ export const OrderList = () => {
         }
         fetchOrder()
     }, [])
+
+    useEffect(() => {
+        if (search) {
+            const filter = orderItem.filter((orderItem) =>
+                orderItem.user && orderItem.user.name.toLowerCase().includes(search.toLowerCase())
+            )
+            setFilteredResult(filter)
+        } else {
+            setFilteredResult([])
+        }
+    }, [search])
 
     const handelDeliver = async (id) => {
         try {
@@ -45,6 +64,7 @@ export const OrderList = () => {
                 .then(res => {
                     toast.success('Order Deleted')
                     setOrderItem(orderItem.filter(i => i._id !== id))
+                    setFilteredResult([])
 
                 }).catch(err => {
                     toast.error("failed to delete")
@@ -60,10 +80,68 @@ export const OrderList = () => {
             {windowSize.current > 576 &&
                 <div className='input-wrapper'>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    <input placeholder='Search' />
+                    <input type='search' className='form-control' value={search} onChange={handleChange} placeholder='Search' />
                 </div>
             }
             <div className='order-container'>
+
+                {filteredResult && filteredResult.map((data, i) =>
+                    <div className='order-card' key={data._id}>
+                        <div className='order-info table table-bordered table-striped'>
+                            <div className='id'>Order_ID: {data._id}</div>
+                            <hr />
+                            {
+                                data.orderItem.map((orderitems, j) => (
+                                    <>
+                                        {
+                                            data.status === 'Pending' ? (
+                                                <div className='info-content' style={{ backgroundColor: 'red' }}>
+                                                    <div className='id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item._id}</div>
+                                                    <div className='food_name'>Food_Item:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item.item_name}</div>
+                                                    <div className='quantity'>Quantity:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.quantity}</div>
+                                                    <div className='location'>Location:&nbsp;&nbsp;&nbsp;&nbsp;{data.shippingAddress1}</div>
+                                                    <div className='status'>Status:&nbsp;&nbsp;&nbsp;&nbsp;{data.status}</div>
+                                                    <div className='contact'>Contact:&nbsp;&nbsp;&nbsp;{data.contact}</div>
+
+                                                </div>
+
+                                            ) : (
+                                                <div className='info-content' style={{ backgroundColor: 'green' }}>
+                                                    <div className='id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item._id}</div>
+                                                    <div className='food_name'>Food_Item:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item.item_name}</div>
+                                                    <div className='quantity'>Quantity:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.quantity}</div>
+                                                    <div className='location'>Location:&nbsp;&nbsp;&nbsp;&nbsp;{data.shippingAddress1}</div>
+                                                    <div className='status'>Status:&nbsp;&nbsp;&nbsp;&nbsp;{data.status}</div>
+                                                    <div className='contact'>Contact:&nbsp;&nbsp;&nbsp;{data.contact}</div>
+                                                    <hr />
+                                                </div>
+                                            )
+
+                                        }
+                                    </>
+                                ))}
+                            <div className='price'>Total_Price:&nbsp;&nbsp;&nbsp;&nbsp;{data.totalPrice}</div>
+                            {
+                                data.user && (
+                                    <>
+                                        <div className='id'>Customer_ID:&nbsp;&nbsp;&nbsp;&nbsp;{data.user._id}</div>
+                                        <div className='customer-name'>Customer_Name:&nbsp;&nbsp;&nbsp;&nbsp;{data.user.name}</div>
+                                    </>
+                                )
+                            }
+
+
+                            <div className="order-btn d-flex">
+                                <button className='btn btn-danger' onClick={() => handelDeliver(data._id)}>Delivered</button>
+                                <button className='btn btn-primary' onClick={() => handelDelete(data._id)}>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+
+
+
                 {
                     orderItem && orderItem.length > 0 ? (
                         orderItem.map((order, i) => (
@@ -73,26 +151,28 @@ export const OrderList = () => {
                                     <hr />
                                     {
                                         order.orderItem.length > 0 &&
-                                        order.orderItem.map((orderitem, j) => (
+                                        order.orderItem.map((orderitems, j) => (
                                             <>
                                                 {
                                                     order.status === 'Pending' ? (
                                                         <div className='info-content' style={{ backgroundColor: 'red' }}>
-                                                            <div className='order-id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitem._id}</div>
-                                                            <div className='food-name'>Food_Item:&nbsp;&nbsp;&nbsp;&nbsp;{orderitem.item_name}</div>
-                                                            <div className='quantity'>Quantity:&nbsp;&nbsp;&nbsp;&nbsp;{orderitem.quantity}</div>
+                                                            <div className='id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item._id}</div>
+                                                            <div className='food_name'>Food_Item:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item.item_name}</div>
+                                                            <div className='quantity'>Quantity:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.quantity}</div>
                                                             <div className='location'>Location:&nbsp;&nbsp;&nbsp;&nbsp;{order.shippingAddress1}</div>
                                                             <div className='status'>Status:&nbsp;&nbsp;&nbsp;&nbsp;{order.status}</div>
+                                                            <div className='contact'>Contact:&nbsp;&nbsp;&nbsp;{order.contact}</div>
 
                                                         </div>
 
                                                     ) : (
                                                         <div className='info-content' style={{ backgroundColor: 'green' }}>
-                                                            <div className='id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitem._id}</div>
-                                                            <div className='food-name'>Food_Item:&nbsp;&nbsp;&nbsp;&nbsp;{orderitem.item_name}</div>
-                                                            <div className='quantity'>Quantity:&nbsp;&nbsp;&nbsp;&nbsp;{orderitem.quantity}</div>
+                                                            <div className='id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item._id}</div>
+                                                            <div className='food_name'>Food_Item:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item.item_name}</div>
+                                                            <div className='quantity'>Quantity:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.quantity}</div>
                                                             <div className='location'>Location:&nbsp;&nbsp;&nbsp;&nbsp;{order.shippingAddress1}</div>
                                                             <div className='status'>Status:&nbsp;&nbsp;&nbsp;&nbsp;{order.status}</div>
+                                                            <div className='contact'>Contact:&nbsp;&nbsp;&nbsp;{order.contact}</div>
                                                             <hr />
                                                         </div>
                                                     )
@@ -100,10 +180,17 @@ export const OrderList = () => {
                                                 }
                                             </>
                                         ))}
-
                                     <div className='price'>Total_Price:&nbsp;&nbsp;&nbsp;&nbsp;{order.totalPrice}</div>
-                                    <div className='customer-name'>Customer_Name:&nbsp;&nbsp;&nbsp;&nbsp;{order.user.name}</div>
-                                    <div className='id'>Customer_ID:&nbsp;&nbsp;&nbsp;&nbsp;{order.user._id}</div>
+                                    {
+                                        order.user && (
+                                            <>
+                                                <div className='id'>Customer_ID:&nbsp;&nbsp;&nbsp;&nbsp;{order.user._id}</div>
+                                                <div className='customer-name'>Customer_Name:&nbsp;&nbsp;&nbsp;&nbsp;{order.user.name}</div>
+                                            </>
+                                        )
+                                    }
+
+
                                     <div className="order-btn d-flex">
                                         <button className='btn btn-danger' onClick={() => handelDeliver(order._id)}>Delivered</button>
                                         <button className='btn btn-primary' onClick={() => handelDelete(order._id)}>Delete</button>

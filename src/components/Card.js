@@ -1,22 +1,21 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import { API } from '../Config';
+import { Link } from 'react-router-dom';
+import { API, IMG_URL } from '../Config';
 import { ToastContainer, toast } from 'react-toastify';
 
 
 const Card = (props) => {
     const [item, setItem] = useState({})
-    const [clickedAddToCart, setAddToCart] = useState(false)
-    const { _id, item_name, item_category, item_description, item_price, } = props.item
+    // const [clickedAddToCart, setAddToCart] = useState(false)
+    const { _id, item_name, item_category, item_description, item_price, item_image } = props.item
     useEffect(() => {
-        // if (clickedAddToCart && _id) {
         axios.get(`${API}/itemdetails/${_id}`)
             .then(res => setItem(res.data))
             .catch(err => console.log(err))
         console.log(item)
 
-    }, [clickedAddToCart, _id])
+    }, [_id])
 
 
     if (!props.item) {
@@ -24,7 +23,7 @@ const Card = (props) => {
     }
 
     const handleCart = async () => {
-        setAddToCart(true)
+        // setAddToCart(true)
         const authToken = localStorage.getItem('authToken')
         const userEmail = localStorage.getItem('logedinUserEmail')
         const userEmailId = localStorage.getItem('logedinUser')
@@ -37,6 +36,7 @@ const Card = (props) => {
                 item_category: item.item_category,
                 item_description: item.item_description,
                 item_price: item.item_price,
+                item_img: item.item_image,
                 userEmail: userEmail,
                 userId: userEmailId,
                 quantity: 1,
@@ -63,7 +63,7 @@ const Card = (props) => {
             <ToastContainer theme='colored' position='top-right' />
             <div className='card-container'>
                 <div className="card m-3" >
-                    <img className="card-img-top" src='https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGZyaWVkJTIwcmljZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60' alt="pp" style={{ height: "120px", objectFit: 'fill', cursor: 'pointer' }} />
+                    <img className="card-img-top" src={`${IMG_URL}/${item_image}`} alt="pp" style={{ height: "120px", objectFit: 'fill', cursor: 'pointer' }} />
                     <div className="card-body">
                         <div className='card-name'>
                             <div className="card-title">{item_name}</div>
@@ -76,20 +76,6 @@ const Card = (props) => {
                                 Price:{item_price}
                             </div>
                         </div>
-
-                        {/* <div className="card-container w-10 "> */}
-                        {/* <select className='m-1 w-50 rounded' style={{ cursor: 'pointer' }}>
-                                {Array.from(Array(6), (e, i) => {
-                                    return (
-
-                                        <option >{i + 1}</option>
-
-                                        //   <option key={i + 1} value={i + 1}>{i + 1}</option> */}
-
-                        {/* )
-                                })}
-                            </select> */}
-
                         <hr />
                         <Link to={`itemdetails/${_id}`} className='btn bg-warning mb-3'>View details</Link>
                         <button className='btn bg-success' onClick={handleCart}>Add to Cart</button>

@@ -15,11 +15,11 @@ const itemSchema = new mongoose.Schema({
         required: true
 
     },
-    // item_img: {
-    //     type: String,
-    //     required: true
+    item_image: {
+        type: String,
+        required: true
 
-    // },
+    },
     item_price: {
         type: Number,
         required: true

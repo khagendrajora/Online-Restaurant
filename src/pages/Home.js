@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Card from '../components/Card'
 
-import { API } from '../Config'
+import { API, IMG_URL } from '../Config'
 import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import Navbar from '../components/Navbar'
+import { Link } from 'react-router-dom'
+
 
 
 export const Home = () => {
@@ -18,6 +19,7 @@ export const Home = () => {
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
+  console.log(search)
 
 
   useEffect(() => {
@@ -32,17 +34,20 @@ export const Home = () => {
       } catch (error) {
         console.error("error in fetch", error)
       }
-      if (search) {
-        const filter = items.filter((item) =>
-          item.name.tolowerCase().includes(search.toLowerCase())
-        )
-        setFilteredResult(filter)
-      }
-
-
     }
     fetchItem()
   }, [])
+
+  useEffect(() => {
+    if (search) {
+      const filter = items.filter((item) =>
+        item.item_name.toLowerCase().includes(search.toLowerCase())
+      )
+      setFilteredResult(filter)
+    } else {
+      setFilteredResult([])
+    }
+  }, [search])
 
   return (
     <>
@@ -53,36 +58,15 @@ export const Home = () => {
       {windowSize.current > 576 &&
         <div className='input-wrapper'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <input placeholder='Search' value={search} onChange={handleChange} />
+          <input type='search' placeholder='Search' className='form-control' value={search} onChange={handleChange} />
         </div>
       }
       <div>
         <div className='d-flex flex-row col-12 col-sm-12 flex-wrap justify-content-center'>
-          {filteredResult && filteredResult.map((item, i) => {
+          {filteredResult && filteredResult.map((item, i) =>
+            <Card key={i} item={item}></Card>
 
-            <div className="card m-3" style={{ "width": "18rem", "maxHeight": "460px" }}>
-              <img className="card-img-top" src={item.img} alt="pp" />
-              <div className="card-body">
-                <h5 className="card-title">{item.name}</h5>
-                <h3 className="card-title">{item.categoryName}</h3>
-                <p className="card-text">{item.description}</p>
-                <div className="container  ">
-                  <select className='m-1 h-100 w-4 bg-success rounded'>
-                    {Array.from(Array(6), (e, i) => {
-                      return (
-                        <option>{i + 1}</option>
-                        //   <option key={i+1} value={i+1}>{i+1}</option>
-                      )
-                    })}
-                  </select>
-                  <div className='d-inline ms-2'>
-                    Total Price
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          })}
+          )}
           {
             items.map((items, i) => (
               <Card key={i} item={items}></Card>

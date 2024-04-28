@@ -1,14 +1,6 @@
 const Item = require('../models/Product')
 
-// exports.itemDetail = async (req, res) => {
-//     // const id=req.params.id
-//   //  const item = await fetch_item.findOne(req.params.id)
-//     //     .populate('foodData')
-//     // if (!item) {
-//     //     return res.status(400).json({ error: 'something went wrong' })
-//     // }
-//     res.send(item
-// }
+
 
 exports.ItemUpload = async (req, res) => {
 
@@ -16,7 +8,7 @@ exports.ItemUpload = async (req, res) => {
         item_name: req.body.item_name,
         item_category: req.body.item_category,
         item_description: req.body.item_description,
-        // item_img: req.file.path,
+        item_image: req.file.path,
         item_price: req.body.item_price,
 
 
@@ -57,7 +49,7 @@ exports.updateItem = async (req, res) => {
         item_category: req.body.item_category,
         item_description: req.body.item_description,
         item_price: req.body.item_price,
-        // item_img: req.file.path
+        item_image: req.file.path
     },
         { new: true }
     )

@@ -1,12 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { API } from '../Config'
+import { API, IMG_URL } from '../Config'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { loadStripe } from '@stripe/stripe-js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
+
 
 
 export const ItemDetails = () => {
@@ -16,10 +16,8 @@ export const ItemDetails = () => {
   const [shippingAdress, setShippingAddress] = useState('')
   const [quantities, setQuantity] = useState('')
   const [contact, setContact] = useState('')
-  const [respons, setResponse] = useState('')
-
-  const [item, setItem] = useState({})
-  const userEmailId = localStorage.getItem('logedinUser')
+  const [item, setItem] = useState('')
+  const userEmailId = (localStorage.getItem('logedinUser'))
 
   const tooglePop = () => {
     if (userEmailId) {
@@ -54,38 +52,24 @@ export const ItemDetails = () => {
       headers: headers,
       body: JSON.stringify(body)
     })
-    const respons = await response.json()
-    setResponse(respons)
-    console.log(respons)
+    if (response.ok) {
+      setSeen(false)
+      const datas = {
+        name: item.item_name,
+        quantity: parseInt(quantities),
+        price: item.item_price
+
+      }
+
+      localStorage.setItem('buyedItem', JSON.stringify(datas))
+      navigate('/proceedToPay')
 
 
-    // await setResponse(response)
-    // console.log(item)
-
-
-    const stripe = await loadStripe('pk_test_51NXj0DFEiZnfC2Vh61hPOfvAhjnFvEAOpmGcUaE58FD0sigvCVNqrv5Dv78Y3mzl2lw0t6MnMZO62CShxTQ0sFjO00nCIk6o7S')
-    const bodyes = {
-      products: respons,
-
-
-      //  totalBill: totalBill
+    } else {
+      console.error("Failed to post order:", response.statusText);
+      toast.error("Failed to place order. Please try again later.");
     }
-    const header = {
-      "Content-Type": "application/json"
-    }
-    const res = await fetch(`${API}/create-checkout-secessions`, {
-      method: "POST",
-      headers: header,
-      body: JSON.stringify(bodyes)
-    })
-    const session = await response.json()
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id
-    })
-    if (result.error) {
-      console.log(result.error)
 
-    }
   }
 
 
@@ -99,8 +83,8 @@ export const ItemDetails = () => {
 
   const addToCart = () => {
 
-    const authToken = localStorage.getItem('authToken')
-    const userEmail = localStorage.getItem('logedinUserEmail')
+    const authToken = (localStorage.getItem('authToken'))
+    const userEmail = (localStorage.getItem('logedinUserEmail'))
 
 
     if (authToken) {
@@ -137,47 +121,50 @@ export const ItemDetails = () => {
     <>
       <ToastContainer theme='colored' position='top-right' />
       <div className="detail-container">
-        <div className="item-image">
-          <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGZyaWVkJTIwcmljZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt={item.item_name} />
-        </div>
-        <div className="item-info">
-          <div className='item-name'>{item.item_name}</div>
-          <div className='price-category'>
-            <div className='item-price'>Price Rs.{item.item_price} <span className='' style={{ "fontStyle": "italic" }}>/ plate</span></div>
-            <div className='item-category'>Category:{item.item_category}</div>
+        <h1>Product Details</h1>
+        <div className='detailSub-container'>
+          <div className="item-image">
+            <div className='subItem-image'>
+              <div className='small-image'><img src={`${IMG_URL}/${item.item_image}`} alt={item.item_name} /></div>
+              <div className='small-image'> <img src={`${IMG_URL}/${item.item_image}`} alt={item.item_name} /></div>
+              <div className='small-image'><img src={`${IMG_URL}/${item.item_image}`} alt={item.item_name} /></div>
+            </div>
+            <img src={`${IMG_URL}/${item.item_image}`} alt={item.item_name} />
           </div>
+          <div className="item-info">
+            <div className='item-name'>{item.item_name}</div>
 
-          <div className='item-description'>{item.item_description}</div>
-          <div className='item-btn'>
-            <button className='btn1 bg-warning hover:bg-success' onClick={addToCart}>Add to Cart</button>
-            <button className='btn1 bg-success ' onClick={tooglePop}>Buy</button>
-            {seen ?
-              <>
-                <div className='popup'>
-                  <div className='popup-inner'>
-                    <div className='d-flex justify-content-between'>
+            <div className='item-price'>Rs.&nbsp;{item.item_price} <span className='' style={{ "fontStyle": "italic" }}>/ plate</span></div>
+            <div className='item-category'>Category:&nbsp;&nbsp;{item.item_category}</div>
+            <div className='item-description'>{item.item_description}</div>
+            <div className='item-btn'>
+              <button className='btn1 bg-warning ' onClick={addToCart}>Add to Cart</button>
+              <button className='btn2 bg-success ' onClick={tooglePop}>Buy</button>
+              {seen ?
+                <>
+                  <div className='popup'>
+                    <div className='popup-inner'>
+                      <div className='d-flex justify-content-between'>
+                        <h2>Add Details</h2>
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={closePopup} className='' size="2x" />
+                      </div>
+                      <form onSubmit={handleSubmit}>
+                        <label>Quantity:</label>
+                        <input type='number' value={quantities} onChange={e => setQuantity(e.target.value)} />
+                        <label>Shipping Address:</label>
+                        <input type='text' value={shippingAdress} onChange={e => setShippingAddress(e.target.value)} />
+                        <label>Contact no:</label>
+                        <input type='number' value={contact} onChange={e => setContact(e.target.value)} />
+                        <button type='submit' className='bg-success p-2 border '>Place Order</button>
+                      </form>
 
-                      <h2>Add Details</h2>
-                      <FontAwesomeIcon icon={faCircleXmark} onClick={closePopup} className='' size="2x" />
                     </div>
-                    <form onSubmit={handleSubmit}>
-                      <label>Quantity:</label>
-                      <input type='number' value={quantities} onChange={e => setQuantity(e.target.value)} />
-                      <label>Shipping Address:</label>
-                      <input type='text' value={shippingAdress} onChange={e => setShippingAddress(e.target.value)} />
-                      <label>Contact no:</label>
-                      <input type='number' value={contact} onChange={e => setContact(e.target.value)} />
-                      <button type='submit' className='bg-success p-2 border '>Place Order</button>
-
-                    </form>
-
                   </div>
-                </div>
 
-              </>
-              : null
-
-            }
+                </>
+                : null
+              }
+            </div>
           </div>
         </div>
       </div>

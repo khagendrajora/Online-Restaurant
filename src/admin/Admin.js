@@ -1,9 +1,11 @@
 
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faUsers, faUtensils, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AdminDashboard } from './AdminDashboard';
+import { faFirstOrderAlt } from '@fortawesome/free-brands-svg-icons'
 
 
 export const Admin = () => {
@@ -20,38 +22,51 @@ export const Admin = () => {
     const handleDelete = () => {
         navigate('/admin/itemlist')
     }
+
+    const handleUserList = () => {
+        navigate('/admin/userlist')
+    }
     return (
         <>
 
             <div className='admin-container'>
-                <div className='sub-container' onClick={handleOrder} style={{ backgroundColor: 'yellow' }}>
-                    <div className='content'>
-                        Order List
-                    </div>
-                </div>
+                <div className='extra'> Admin Dashboard</div>
+                <div className='admin-body'>
 
-                <div className='sub-container' onClick={handleAdd} style={{ backgroundColor: 'green' }}>
-                    <div className='content'>
-                        Add Food Item
-                    </div>
-                </div>
 
-                <div className='sub-container' onClick={handleDelete} style={{ backgroundColor: 'red' }}>
-                    <div className='content'>
-                        Food Items List
+                    <div className='sub-container' onClick={handleOrder} style={{ backgroundColor: 'yellow' }}>
+                        <FontAwesomeIcon icon={faFirstOrderAlt} size='3x' />
+                        <div className='content'>
+                            Order List
+                        </div>
                     </div>
-                </div>
 
-                <div className='sub-container' style={{ backgroundColor: 'pink' }}>
-                    <div className='content'>
-                        Update Food Item
+                    <div className='sub-container' onClick={handleAdd} style={{ backgroundColor: 'green' }}>
+                        <FontAwesomeIcon icon={faPlus} size='3x' />
+                        <div className='content'>
+                            Add Food Item
+                        </div>
                     </div>
-                </div>
 
-                <div className='sub-container' style={{ backgroundColor: 'whitesmoke' }}>
-                    <div className='content'>
-                        Update Order Status
+                    <div className='sub-container' onClick={handleDelete} style={{ backgroundColor: 'red' }}>
+                        <FontAwesomeIcon icon={faUtensils} size='3x' />
+                        <div className='content'>
+                            Food Items List
+                        </div>
                     </div>
+
+                    <div className='sub-container' onClick={handleUserList} style={{ backgroundColor: 'pink' }}>
+                        <FontAwesomeIcon icon={faUsers} size='3x' />
+                        <div className='content'>
+                            User List
+                        </div>
+                    </div>
+
+                    {/* <div className='sub-container' style={{ backgroundColor: 'whitesmoke' }}>
+                        <div className='content'>
+                            Update Order Status
+                        </div>
+                    </div> */}
                 </div>
 
             </div>

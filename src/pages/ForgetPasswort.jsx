@@ -3,6 +3,7 @@ import React from 'react'
 import { API } from '../Config'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 
 
@@ -11,7 +12,21 @@ export const ForgetPasswort = () => {
     const handleSubmit = async (values) => {
         try {
             await axios.post(`${API}/forgetpwd`, { email: values.email })
-            navigate('/emailcheckmessage')
+                .then(() => {
+                    navigate('/emailcheckmessage')
+                })
+
+
+            // .then((res => {
+            //     if (res) {
+            //         toast.success('Reset Link is send in provided email')
+            //     } else {
+            //         toast.error("failed")
+            //     }
+            // })).catch(err => {
+            //     toast.error('Failed', err)
+            // })
+
         } catch (error) {
             console.error(error)
         }
@@ -29,6 +44,7 @@ export const ForgetPasswort = () => {
 
     return (
         <>
+            <ToastContainer theme='colored' position='top-center' />
             <div className='form-container'>
                 <form onSubmit={formik.handleSubmit}>
                     <h2>Forget Password</h2>

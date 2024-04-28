@@ -1,33 +1,10 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-//process Payment
-
-// exports.processPayment = async (req, res) => {
-//     const paymentIntent = await stripe.paymentIntents.create({
-//         amount: req.body.amount,
-//         currency: 'npr',
-//         metadata: { integration_check: 'accept_a_payment' } //the seplling must me exactly same.
-
-//     })
-//     res.json({ client_secret: paymentIntent.client_secret })
-// }
-
-// //send stripe api key to frontend
-
-// exports.sendStripeApi = async (req, res) => {
-//     res.json({
-//         stripeApiKey: process.env.STRIPE_API_KEY
-//     })
-// }
-
 //payment ordered through Cart
 exports.payment = async (req, res) => {
     const { products } = req.body
-    const totalBill = products.totalPrice
-    const quantity = req.body
-    // console.log(totalBill)
-    // console.log(products)
     const lineItems = products.map((product) => ({
+
         price_data: {
             currency: 'npr',
             product_data: {
@@ -49,24 +26,31 @@ exports.payment = async (req, res) => {
     res.json({ id: session.id })
 
 }
-exports.paymentDirect = async (req, res) => {
-    const products = req.body
-    // const totalBill = products.totalPrice
-    // const quantity = req.body
-    // console.log(totalBill)
-    // console.log(products)
-    const lineItems = {
+
+exports.directPayment = async (req, res) => {
+    const { items } = req.body
+
+    if (!Array.isArray(items)) {
+        return res.status(400).json({ error: 'Items must be an array' });
+    } else {
+        console.log(items)
+    }
+
+
+    const lineItems = items.map((item) => ({
+
         price_data: {
             currency: 'npr',
-            // product_data: {
-            //     // name: products.orderItem.item_name
-
-            // },
-            unit_amount: products.totalPrice * 100
+            product_data: {
+                name: item.name
+            },
+            unit_amount: item.price * 100
         },
-        // quantity: products.orderItem.quantity
+        quantity: item.quantity
 
-    }
+    }))
+
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: lineItems,
@@ -77,3 +61,4 @@ exports.paymentDirect = async (req, res) => {
     res.json({ id: session.id })
 
 }
+

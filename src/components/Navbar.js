@@ -6,6 +6,7 @@ import { faCartShopping, faRightToBracket, faUserPlus, faBurger, faMagnifyingGla
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import { isAuthenticated } from '../auth/authIndex';
+import Card from './Card';
 
 
 
@@ -32,15 +33,22 @@ const Navbar = () => {
             } catch (error) {
                 console.error("error in fetch", error)
             }
-            if (search) {
-                const filter = items.filter((item) =>
-                    item.name.tolowerCase().includes(search.toLowerCase())
-                )
-                setFilteredResult(filter)
-            }
+
         }
         fetchItem()
     }, [])
+
+    useEffect(() => {
+        if (search) {
+            const filter = items.filter((item) =>
+                item.item_name.toLowerCase().includes(search.toLowerCase())
+            )
+            setFilteredResult(filter)
+        } else {
+            setFilteredResult([])
+        }
+
+    }, [search])
 
 
     const windowSize = useRef(window.innerWidth)
@@ -69,21 +77,12 @@ const Navbar = () => {
         setSearchBar(!showSearchBar)
     }
 
-    // const redirect = () => {
-    //     console.log(user)
-    //     if (user && user.role === "0") {
-    //         return navigate('/admin')
-    //     }
-    //     else {
-    //         navigate('/')
-    //     }
-    // }
     return (
         <>
 
             <nav className='nav'>
                 <ul className='fs-3 m-2'>
-                    <Link to='/' className='text-black'><em>Happy Meal</em></Link>
+                    <Link to='/' className='text-white'><em>Happy Meal</em></Link>
                 </ul>
                 {windowSize.current > 576 &&
                     <>
@@ -120,34 +119,65 @@ const Navbar = () => {
                 }
                 {windowSize.current <= 576 &&
                     <>
-                        <li className='mobile'>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
-                            {showSearchBar && (
-                                <div className='input-wrapper'>
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                    <input placeholder='Search' value={search} onChange={handleChange} />
-                                </div>
-                            )
-                            }
-                            <FontAwesomeIcon icon={faBurger} size='2x' className='me-3 m-2 text-black' onClick={toogleDropdown} />
+                        {token &&
 
-                            {showDropdown && (
-                                <div className='menuDropdown' onClick={closeDropdown}>
-                                    {user && user.role === "0" &&
-                                        <li><Link to='/admin/dashboard' className='text-white'>Admin&nbsp;Dashboard</Link></li>
+                            <li className='mobile'>
+                                <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
+                                {showSearchBar && (
+                                    <div className='input-wrapper'>
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                        <input type='search' placeholder='Search' className='form-control' value={search} onChange={handleChange} />
+                                    </div>
+                                )
+                                }
+                                <FontAwesomeIcon icon={faBurger} size='2x' className='me-3 m-2 text-black' onClick={toogleDropdown} />
 
-                                    }
-                                    <li><Link to={`/userdetails/${loginId}`} className='text-white p-3  '>Profile</Link></li>
-                                    <li><Link to='/mycart' className='text-white p-3' >My Cart</Link></li>
-                                    <li><Link to='/login' onClick={handleLogOut} className='text-white p-3'>Logout</Link ></li>
-                                </div>
-                            )
-                            }
-                        </li>
+                                {showDropdown && (
+                                    <div className='menuDropdown' onClick={closeDropdown}>
+                                        {user && user.role === "1" &&
+                                            <li><Link to='/admin/dashboard' className='text-white'>Admin&nbsp;Dashboard</Link></li>
+
+                                        }
+                                        <li><Link to={`/userdetails/${loginId}`} className='text-white p-3  '>Profile</Link></li>
+                                        <li><Link to='/mycart' className='text-white p-3' >My Cart</Link></li>
+                                        <li><Link to='/login' onClick={handleLogOut} className='text-white p-3'>Logout</Link ></li>
+                                    </div>
+                                )
+                                }
+                            </li>
+                        }
+                        {!token &&
+                            <li className='mobile'>
+                                <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
+                                {showSearchBar && (
+                                    <div className='input-wrapper'>
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                        <input type='search' className='form-control' placeholder='Search' value={search} onChange={handleChange} />
+                                    </div>
+                                )
+                                }
+                                <FontAwesomeIcon icon={faBurger} size='2x' className='me-3 m-2 text-black' onClick={toogleDropdown} />
+
+                                {showDropdown && (
+                                    <div className='menuDropdown' onClick={closeDropdown}>
+                                        <li><Link to='/login' className='text-white p-3  '>Login</Link></li>
+                                        <li><Link to='/signup' className='text-white p-3' >Sign Up</Link></li>
+
+                                    </div>
+                                )
+                                }
+                            </li>
+
+
+                        }
                     </>
 
                 }
             </nav >
+            {filteredResult && filteredResult.map((item, i) =>
+                <Card key={i} item={item}></Card>
+
+            )}
         </>
     )
 }

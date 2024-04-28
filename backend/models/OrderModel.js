@@ -22,12 +22,15 @@ const orderSchema = new mongoose.Schema({
     },
     user: {
         type: ObjectId,
-        required: true,
-        ref: 'UserModel'
+        ref: 'UserModel',
+        required: true
     },
+
     contact: {
         type: Number,
         required: true
     }
+
+
 }, { timestamps: true })
 module.exports = mongoose.model('OrderModel', orderSchema)

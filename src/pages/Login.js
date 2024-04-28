@@ -16,7 +16,8 @@ export const Login = () => {
     })
 
     if (!response.ok) {
-      alert("invalid")
+      alert("Information not matched Or email is not verified")
+
 
     } if (response.ok) {
       const data = await response.json()

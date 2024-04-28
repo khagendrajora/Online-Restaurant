@@ -9,7 +9,9 @@ exports.postOrder = async (req, res) => {
     const orderItemIds = Promise.all(req.body.orderItem.map(async orderItemData => {
         let newOrderItem = new OrderItem({
             quantity: orderItemData.quantity,
-            item: orderItemData.item
+            item: orderItemData.item,
+            item_name: orderItemData.item.item_name
+
 
         })
         newOrderItem = await newOrderItem.save()   // this will  gengnerate an id
@@ -25,6 +27,7 @@ exports.postOrder = async (req, res) => {
         return total
         //
     }))
+
     const totalPrice = totalAmount.reduce((a, b) => a + b, 0)
 
     //post data to Order model
@@ -34,8 +37,12 @@ exports.postOrder = async (req, res) => {
         shippingAddress1: req.body.shippingAddress1,
         totalPrice: totalPrice,
         user: req.body.user,
-        quantity: orderItemIds.quantity,
+
+        quantity: orderItemIdResolved.quantity,
         contact: req.body.contact
+
+
+
     })
 
     order = await order.save()
@@ -49,13 +56,14 @@ exports.postOrder = async (req, res) => {
 
 exports.orderList = async (req, res) => {
     const orderList = await OrderModel.find()
-        .populate('user', 'name')
         .populate({
             path: 'orderItem', populate: {
                 path: 'item', populate: 'item_name'
             }
         })
+        .populate({ path: 'user', select: 'name' })
         .sort({ createdAt: -1 })
+
     if (!orderList) {
         return res.status(400).json({ error: 'list not fetched' })
     }
@@ -68,6 +76,7 @@ exports.orderList = async (req, res) => {
 exports.orderDetail = async (req, res) => {
     const orderDetail = await OrderModel.findById(req.params.id)
         .populate('user', 'name')
+
         .populate({
             path: 'orderItem', populate: {
                 path: 'item', populate: 'item_name'
@@ -100,10 +109,11 @@ exports.userOrderList = async (req, res) => {
     const userorderlist = await OrderModel.find({ user: req.params.userid })
         .populate({
             path: 'orderItem', populate: {
-                path: 'item', populate: 'item_name'
+                path: 'item', select: 'item_name'
             }
         })
         .sort({ createdAt: -1 })
+        .lean();
     if (!userorderlist) {
         return res.status(400).json({ error: 'user order list  not found' })
     }
