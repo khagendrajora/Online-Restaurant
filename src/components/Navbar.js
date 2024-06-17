@@ -26,9 +26,7 @@ const Navbar = () => {
         const fetchItem = async () => {
             try {
                 const res = await axios.get(`${API}/itemlist`, {
-
-                }
-                )
+                })
                 setitems(res.data)
             } catch (error) {
                 console.error("error in fetch", error)
@@ -79,7 +77,6 @@ const Navbar = () => {
 
     return (
         <>
-
             <nav className='nav'>
                 <ul className='fs-3 m-2'>
                     <Link to='/' className='text-white'><em>Happy Meal</em></Link>
@@ -88,7 +85,6 @@ const Navbar = () => {
                     <>
                         {token &&
                             <ul className='col-5 d-flex justify-content-end'>
-
                                 <li>
                                     <FontAwesomeIcon icon={faUser} size='2x' className='me-3 text-black' onClick={toogleDropdown} />
                                     {showDropdown && (
@@ -104,8 +100,6 @@ const Navbar = () => {
                                     }
                                 </li>
                                 <Link to='/mycart'> <li><FontAwesomeIcon icon={faCartShopping} size='2x' className='me-4 text-black' /></li></Link>
-
-
                             </ul>
                         }
                         {!token &&
@@ -117,7 +111,7 @@ const Navbar = () => {
                         }
                     </>
                 }
-                {windowSize.current <= 576 &&
+                {windowSize.current < 576 &&
                     <>
                         {token &&
 
@@ -125,7 +119,7 @@ const Navbar = () => {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
                                 {showSearchBar && (
                                     <div className='input-wrapper'>
-                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                        {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
                                         <input type='search' placeholder='Search' className='form-control' value={search} onChange={handleChange} />
                                     </div>
                                 )
@@ -135,12 +129,12 @@ const Navbar = () => {
                                 {showDropdown && (
                                     <div className='menuDropdown' onClick={closeDropdown}>
                                         {user && user.role === "1" &&
-                                            <li><Link to='/admin/dashboard' className='text-white'>Admin&nbsp;Dashboard</Link></li>
+                                            <li><Link to='/admin/dashboard' className='text-white navlink'>Admin&nbsp;Dashboard</Link></li>
 
                                         }
-                                        <li><Link to={`/userdetails/${loginId}`} className='text-white p-3  '>Profile</Link></li>
-                                        <li><Link to='/mycart' className='text-white p-3' >My Cart</Link></li>
-                                        <li><Link to='/login' onClick={handleLogOut} className='text-white p-3'>Logout</Link ></li>
+                                        <li><Link to={`/userdetails/${loginId}`} className='navlink text-white p-1  '>Profile</Link></li>
+                                        <li><Link to='/mycart' className='text-white p-1' >My Cart</Link></li>
+                                        <li><Link to='/login' onClick={handleLogOut} className='text-white p-1'>Logout</Link ></li>
                                     </div>
                                 )
                                 }
@@ -151,7 +145,7 @@ const Navbar = () => {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
                                 {showSearchBar && (
                                     <div className='input-wrapper'>
-                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                        {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
                                         <input type='search' className='form-control' placeholder='Search' value={search} onChange={handleChange} />
                                     </div>
                                 )
@@ -160,18 +154,15 @@ const Navbar = () => {
 
                                 {showDropdown && (
                                     <div className='menuDropdown' onClick={closeDropdown}>
-                                        <li><Link to='/login' className='text-white p-3  '>Login</Link></li>
-                                        <li><Link to='/signup' className='text-white p-3' >Sign Up</Link></li>
+                                        <li><Link to='/login' className='text-white p-1  '>Login</Link></li>
+                                        <li><Link to='/signup' className='text-white p-1' >Sign Up</Link></li>
 
                                     </div>
                                 )
                                 }
                             </li>
-
-
                         }
                     </>
-
                 }
             </nav >
             {filteredResult && filteredResult.map((item, i) =>

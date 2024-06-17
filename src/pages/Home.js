@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+
 
 
 
@@ -26,10 +26,7 @@ export const Home = () => {
     const fetchItem = async () => {
       try {
 
-        const res = await axios.get(`${API}/itemlist`, {
-
-        }
-        )
+        const res = await axios.get(`${API}/itemlist`)
         setitems(res.data)
       } catch (error) {
         console.error("error in fetch", error)

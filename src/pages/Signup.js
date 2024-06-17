@@ -49,6 +49,7 @@ export const Signup = () => {
             <div className='form-container' >
                 <form className='htmlForm-horizontal' onSubmit={formik.handleSubmit}>
                     <div className='form-body'>
+                        <h1 className='page-name mb-5'>Create Account</h1>
                         <div className="htmlForm-group ">
                             <label htmlFor="name">Name:</label>
                             <input type="text" className="control-label" name='name' placeholder="Enter name"
@@ -86,9 +87,10 @@ export const Signup = () => {
                                 value={formik.image} />
 
                         </div> */}
-
-                        <button type="submit" className="m-3 btn btn-success">Sign Up</button>
-                        <Link to='/login' className='m-3 btn btn-danger'>Login</Link>
+                        <div className=''>
+                            <button type="submit" className="m-3 btn btn-success">Sign Up</button>
+                            <Link to='/login' className='link '>Already have an account</Link>
+                        </div>
                     </div>
 
                 </form>

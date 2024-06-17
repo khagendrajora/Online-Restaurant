@@ -97,7 +97,7 @@ export const ItemList = () => {
                                         <td>{item.item_price}</td>
                                         <td>
                                             <div className='action'>
-                                                <button className='btn btn-danger' onClick={() => Delete(item._id)}><FaTrash /></button>
+                                                <button className='btn btn-danger me-1' onClick={() => Delete(item._id)}><FaTrash /></button>
                                                 <button className='btn btn-success' onClick={() => Edit(item._id)}><FaPenAlt /></button>
                                             </div>
                                         </td>

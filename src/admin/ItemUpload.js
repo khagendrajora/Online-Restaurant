@@ -17,7 +17,7 @@ const ItemUpload = () => {
         item_price,
         item_description,
         item_category,
-        item_image
+
 
     } = itemData
 
@@ -30,7 +30,10 @@ const ItemUpload = () => {
     }
 
     const handleImageChange = (event) => {
-        setItemData({ ...itemData, item_image: event.target.files[0] });
+        setItemData({
+            ...itemData,
+            item_image: event.target.files[0]
+        });
 
     }
 
@@ -72,7 +75,7 @@ const ItemUpload = () => {
         <>
             <ToastContainer theme='colored' position='top-right' />
             <div className='uploadItem-container'>
-                <form className='upload-itemForm' enctype="multipart/form-data" method="post" >
+                <form className='upload-itemForm p-1' enctype="multipart/form-data" method="post" >
                     <h1 className='page-name'>Add New Food Item</h1>
                     <div className="upload-itemform">
                         <label htmlfor="item_name">Item Name</label>
@@ -91,7 +94,7 @@ const ItemUpload = () => {
 
                     <div className="upload-itemform">
                         <label htmlfor="item_description">Item Description</label>
-                        <input type="text" name='item_description' className="form-control" id="description" placeholder="Item Description"
+                        <input type="text" rows='4' cols='50' name='item_description' className="form-control" id="description" placeholder="Item Description"
                             onChange={handleChange('item_description')}
                             value={item_description} />
                     </div>
@@ -110,8 +113,6 @@ const ItemUpload = () => {
                             onChange={handleImageChange}
                         />
                     </div>
-
-
                     <button className="btn btn-primary" onClick={handleSubmit}>Add Food</button>
                 </form>
             </div>

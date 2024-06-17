@@ -49,13 +49,11 @@ export const Login = () => {
   return (
     <>
       <div className='form-container' >
-
         <form onSubmit={formik.handleSubmit}>
-
           <div className='form-body'>
-            {/* <h1 className='page-name'>Add New Food</h1> */}
+            <h1 className='page-name mb-5'>Login</h1>
             <div className="htmlForm-group">
-              <label htmlFor="email">Email address:</label>
+              <label htmlFor="email">Email address</label>
               <input type="email" className="control-label" name='email' id="Email" aria-describedby="emailHelp" placeholder="Enter email"
                 onChange={formik.handleChange}
                 value={formik.email} />
@@ -71,9 +69,9 @@ export const Login = () => {
             <div>
               <div className='d-flex justify-content-between '>
                 <button type="submit" className="m-3 btn btn-success">Login</button>
-                <Link to='/forgetpassword' className='mt-4'>Forget Password</Link>
+                <Link to='/forgetpassword' className='mt-4 link'>Forget Password</Link>
               </div>
-              <p>Don`t have an account?<Link to='/signup' className='m-3  btn-danger'>Signup</Link></p>
+              <p>Don`t have an account?<Link to='/signup' className='m-3 link'>Signup</Link></p>
             </div>
           </div>
         </form>

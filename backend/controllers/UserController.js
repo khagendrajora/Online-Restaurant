@@ -29,7 +29,6 @@ exports.createUser = async (req, res) => {
                 if (!user) {
                     return res.status(400).json({ error: 'not uploaded' })
                 }
-
                 //send token to database
                 let token = new Token({
                     token: crypto.randomBytes(16).toString('hex'),
@@ -194,7 +193,7 @@ exports.forgetPwd = async (req, res) => {
         },
 
         ).catch(err => {
-            return res.status(400).json({ err: 'failed' })
+            return res.status(400).json("failed", err)
         })
 
 }
@@ -202,32 +201,37 @@ exports.forgetPwd = async (req, res) => {
 
 //reset password
 exports.resetPwd = async (req, res) => {
-    Token.findOne({ token: req.params.token })
-        .then(data => {
-            if (!data) {
-                return res.status(400).json({ error: "token not found" })
-            }
-            User.findOne({ _id: data.userId })
-                .then(async id => {
-                    if (!id) {
-                        return res.status(400).json({ error: "invalid email for given token" })
-                    } else {
-                        const salt = await bcrypt.genSalt(10)
-                        let secPassword = await bcrypt.hash(req.body.password, salt)
-                        id.password = secPassword
-                        id.save()
-                        res.json({ message: 'password  has been reset' })
-                    }
-                })
-                .catch(err => {
-                    return res.status(400).json({ error: "email and token not matched" })
-                })
+    try {
+        Token.findOne({ token: req.params.token })
+            .then(data => {
+                if (!data) {
+                    return res.status(300).json({ error: "token not found" })
+                }
+                User.findOne({ _id: data.userId })
+                    .then(async id => {
+                        if (!id) {
+                            return res.status(301).json({ error: "invalid email for given token" })
+                        } else {
+                            const salt = await bcrypt.genSalt(10)
+                            let secPassword = await bcrypt.hash(req.body.password, salt)
+                            id.password = secPassword
+                            id.save()
+                            res.json({ message: 'password  has been reset' })
+                        }
+                    })
+                    .catch(err => {
+                        return res.status(302).json({ error: "email and token not matched", e: err })
+                    })
 
 
-        }).catch(err => {
-            return res.status(400).json({ error: "token not found" })
-        })
+            }).catch(err => {
+                return res.status(400).json({ error: err })
+            })
+    } catch (err) {
+        res.status(500).json({ error: "internal error" })
+    }
 }
+
 
 
 

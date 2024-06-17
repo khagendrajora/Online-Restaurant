@@ -87,7 +87,7 @@ export const OrderList = () => {
 
                 {filteredResult && filteredResult.map((data, i) =>
                     <div className='order-card' key={data._id}>
-                        <div className='order-info table table-bordered table-striped'>
+                        <div className='order-info '>
                             <div className='id'>Order_ID: {data._id}</div>
                             <hr />
                             {
@@ -131,7 +131,7 @@ export const OrderList = () => {
                             }
 
 
-                            <div className="order-btn d-flex">
+                            <div className="order-btn">
                                 <button className='btn btn-danger' onClick={() => handelDeliver(data._id)}>Delivered</button>
                                 <button className='btn btn-primary' onClick={() => handelDelete(data._id)}>Delete</button>
                             </div>
@@ -146,7 +146,7 @@ export const OrderList = () => {
                     orderItem && orderItem.length > 0 ? (
                         orderItem.map((order, i) => (
                             <div className='order-card' key={order._id}>
-                                <div className='order-info table table-bordered table-striped'>
+                                <div className='order-info '>
                                     <div className='id'>Order_ID: {order._id}</div>
                                     <hr />
                                     {

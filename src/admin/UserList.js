@@ -11,6 +11,7 @@ const UserList = () => {
     const [search, setSearch] = useState('')
     const [user, setUser] = useState([])
 
+
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
@@ -36,6 +37,7 @@ const UserList = () => {
     }, [search])
 
 
+
     return (
         <>
             <ToastContainer theme='colored' position='top-center' />
@@ -53,6 +55,7 @@ const UserList = () => {
                     <table className='table table-bordered table-striped'>
                         <thead>
                             <tr>
+                                {/* <th>S.N</th> */}
                                 <th>User Name</th>
                                 <th>Email</th>
                                 <th>Location</th>
@@ -79,6 +82,7 @@ const UserList = () => {
                             {
                                 user && user.map((user, i) => (
                                     <tr key={i}>
+                                        {/* <td>{SN}</td> */}
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.location}</td>

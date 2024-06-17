@@ -50,16 +50,43 @@ a {
   align-items: center;
   position: absolute;
   z-index: 999;
-  width: 19rem;
-  margin-left: -12rem;
+  width: auto;
+  right: 1px;
+  /* margin-left: -1rem; */
   border-style: none none outset none;
 }
 
 .menuDropdown li {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   display: flex;
+  padding: 5px 20px 5px 20px;
+  width: 100%;
   justify-content: center;
 }
+
+.navlink:hover {
+  color: rgb(68, 137, 199);
+
+}
+
+.mycart {
+  width: auto;
+}
+
+.cartbody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+
+}
+
+.mycartimg img {
+  background-size: cover;
+  width: 100px;
+
+}
+
 
 .input-wrapper {
 
@@ -70,7 +97,7 @@ a {
   margin-top: 15px;
   height: 3rem;
   padding: 0 15PX;
-  box-shadow: 0 0 8px #ddd;
+
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -78,7 +105,7 @@ a {
 
 }
 
-.input-wrapper input {
+.input-wrapper {
   background-color: transparent;
   border: none;
   font-size: 1.25rem;
@@ -101,21 +128,39 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  box-sizing: border-box;
+  /* width: 350px;
+  height: 500px; */
+
 
 }
 
 .card {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  padding: 8px;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  /* justify-content: center; */
+  /* padding: 8px; */
   width: 100%;
+  /* height: 400px; */
+}
+
+/* .card-img-top {
+  width: 100px;
+  /* background-size: contain; */
+
+
+.card-img-top img {
+  background-size: cover;
+  width: 315px;
+  height: 300px;
 }
 
 .card-body {
   display: flex;
   flex-direction: column;
+  width: auto;
+  height: auto;
 }
 
 .card-name {
@@ -192,13 +237,19 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
+  background-color: rgb(196, 210, 223);
   padding: 30px;
+  height: auto;
+  /* background-color: #34495E; */
 
 }
 
+/* .htmlForm-horizontal {
+  width: 80%;
+} */
+
 .form-body {
-  padding: 5rem;
+  padding: 1rem;
   background: rgb(151, 178, 178);
   background: linear-gradient(0deg, rgba(151, 178, 178, 1) 00%, rgba(255, 255, 255, 1) 100%);
   box-shadow: 8px;
@@ -217,7 +268,8 @@ a {
 
   margin: 0 0 20px 0;
   display: flex;
-  max-width: 100%;
+  width: auto;
+  /* width: 90%; */
   flex-direction: column;
 }
 
@@ -227,6 +279,17 @@ a {
   padding: 10px;
   border-radius: 20px;
 
+}
+
+.link {
+  font-size: small;
+  font-weight: 700;
+  text-decoration: underline;
+
+}
+
+.link:hover {
+  color: blue;
 }
 
 .detail-container {
@@ -290,7 +353,7 @@ a {
 .item-info {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  /* align-items: start; */
   height: auto;
 
   max-width: 100%;
@@ -355,8 +418,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
-
+  background-color: rgb(196, 210, 223);
 }
 
 .page-name {
@@ -369,20 +431,30 @@ a {
 
 .upload-itemForm {
   border-radius: 1rem;
-  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
   background: rgb(151, 178, 178);
   background: linear-gradient(0deg, rgba(151, 178, 178, 1) 00%, rgba(255, 255, 255, 1) 100%);
 }
 
 .upload-itemForm input {
   margin: 0 0 1rem 0;
+  border-radius: 15px;
 }
 
 .upload-itemform {
   font-weight: bold;
-  padding: 1rem 5rem 0 5rem;
+  padding: 1rem 2rem 0 2rem;
+  width: 100%;
 }
 
+.upload-itemForm button.btn {
+  display: flex;
+  align-self: flex-end;
+  margin: 1rem 1rem 1rem 0;
+}
 
 .sub-container {
   width: 100%;
@@ -411,18 +483,18 @@ a {
   display: flex;
   margin: 1rem;
   flex-wrap: wrap;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
 
 
 }
 
 .order-card {
-  width: 100%;
   display: flex;
   height: auto;
+  padding: 1rem;
   margin: 0 0 2rem 0;
-  border-radius: 1rem;
-  background-color: #eae8e8;
+  width: 400px;
   box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem whitesmoke;
 
 }
@@ -431,20 +503,30 @@ a {
   display: flex;
   width: fit-content;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+
 }
 
 .info-content {
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
 }
 
-
 .id {
-
   display: flex;
   flex-direction: column;
+}
+
+.order-btn {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem 0 0 0;
+  width: 100%;
 }
 
 
@@ -495,35 +577,6 @@ a {
   padding: 1rem;
 }
 
-/* admin/ orderlist */
-.order-card {
-  width: 100%;
-  border-radius: 1rem;
-  background-color: #eae8e8;
-  margin: 0 0 2rem 0;
-  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem whitesmoke;
-
-}
-
-.order-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.info-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  text-align: center;
-
-}
-
-.order-id {
-  font-size: large;
-  font-weight: bold;
-}
 
 /* admin itemlist */
 
@@ -593,7 +646,7 @@ pop up form */
 }
 
 .footer {
-  background-color: #282c34;
+  background-color: #34495E;
   display: flex;
   flex-direction: column;
   margin-top: 3rem;
@@ -601,18 +654,13 @@ pop up form */
 
 .sub-footer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
-
+  align-items: center;
   width: 100%;
   color: white;
   padding: 1rem 1rem 0 1rem;
 
-}
-
-.left {
-  /* width: 40px; */
 }
 
 .left .img img {
@@ -621,17 +669,29 @@ pop up form */
 
 .right {
   display: block;
-  margin: 0 5rem 0 0;
+  /* margin: 0 5rem 0 0; */
+
+}
+
+.right1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0.5rem 0 0.5rem;
 
 }
 
 
 .center>* {
   margin-bottom: 4px;
+  margin: 0 1rem 0 0;
+  color: white;
+
 }
 
 .center .terms {
   cursor: pointer;
+  color: black;
 }
 
 .center .terms:hover {
@@ -643,9 +703,27 @@ pop up form */
 
 }
 
+.right input {
+  width: 80%;
+}
+
+li:hover {
+  color: #c92929;
+
+}
+
+.subscribe {
+  border-radius: 10px;
+  padding: 6px;
+  color: red;
+
+  font-size: 15px;
+}
+
 .social-media {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+
 
 }
 

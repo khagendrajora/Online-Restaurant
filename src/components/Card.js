@@ -13,7 +13,7 @@ const Card = (props) => {
         axios.get(`${API}/itemdetails/${_id}`)
             .then(res => setItem(res.data))
             .catch(err => console.log(err))
-        console.log(item)
+
 
     }, [_id])
 
@@ -63,7 +63,9 @@ const Card = (props) => {
             <ToastContainer theme='colored' position='top-right' />
             <div className='card-container'>
                 <div className="card m-3" >
-                    <img className="card-img-top" src={`${IMG_URL}/${item_image}`} alt="pp" style={{ height: "120px", objectFit: 'fill', cursor: 'pointer' }} />
+                    <div className='card-img-top'>
+                        <img className="" src={`${IMG_URL}/${item_image}`} alt="pp" />
+                    </div>
                     <div className="card-body">
                         <div className='card-name'>
                             <div className="card-title">{item_name}</div>
@@ -77,7 +79,7 @@ const Card = (props) => {
                             </div>
                         </div>
                         <hr />
-                        <Link to={`itemdetails/${_id}`} className='btn bg-warning mb-3'>View details</Link>
+                        <Link to={`itemdetails/${_id}`} className='btn bg-warning mb-3 '>View details</Link>
                         <button className='btn bg-success' onClick={handleCart}>Add to Cart</button>
                     </div>
                 </div>

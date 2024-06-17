@@ -17,8 +17,6 @@ import Layouts from './components/Layouts';
 import { ItemList } from './admin/ItemList';
 import UpdateItem from './admin/UpdateItem';
 import { Helmet } from 'react-helmet';
-// import { CheckOut } from './pages/CheckOut';
-// import ConfirmOrder from './pages/ConfirmOrder';
 import Success from './pages/Success';
 import Failed from './pages/Failed';
 import EmailCheckMessage from './pages/EmailCheckMessage';
@@ -26,7 +24,6 @@ import ItemUpload from './admin/ItemUpload';
 import { AdminDashboard } from './admin/AdminDashboard';
 import { ProceedToPay } from './pages/ProceedToPay';
 import UpdateUserDetails from './pages/UpdateUserDetails';
-// import { PaymentElement } from './pages/PaymentElement';
 import UserList from './admin/UserList';
 
 

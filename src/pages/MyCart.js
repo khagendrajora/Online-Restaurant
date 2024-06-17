@@ -103,10 +103,6 @@ const MyCart = () => {
 
     }
 
-    // useEffect(() => {
-
-
-    // }, [order])
 
     return (
         <>
@@ -114,17 +110,19 @@ const MyCart = () => {
                 <h1 className="">Shopping Cart</h1>
                 <h6 className="">{mycartItem.length} items</h6>
             </div>
-            <div className='row d-flex flex-direction-row justify-content-around align-items-center'>
+            <div className='mycart'>
                 {mycartItem.length > 0 ? (
-                    <div className='col-5'>
+                    <div className='p-3'>
                         {mycartItem.map((item, i) => (
                             <Fragment key={i}>
                                 <div className=" ">
                                     <div className="p-1">
-                                        <hr className="my-4 w-75" />
-                                        <div className="row d-flex align-items-center">
-                                            <button className='btn col-1 btn-danger' onClick={() => Delete(item.id)}><FaTrash /></button>
-                                            <div className="col-md-2 col-lg-2 col-xl-2">
+                                        <hr className="my-4 " />
+                                        <div className="cartbody">
+                                            <div>
+                                                <button className='btn  btn-danger ' onClick={() => Delete(item.id)}><FaTrash /></button>
+                                            </div>
+                                            <div className="mycartimg">
                                                 <img
                                                     src={`${IMG_URL}/${item.item_img}`}
                                                     className="img-fluid rounded-3" alt="" />
@@ -136,16 +134,16 @@ const MyCart = () => {
                                             <div className="col-2">
                                                 <h6 className="mb-0">Rs.{item.item_price}</h6>
                                             </div>
-                                            <div className='col-md-4  col-xl-3 d-flex'>
-                                                <button className='btn bg-primary ' onClick={() => IncreaseQty(i, item.id, item.item_price * item.quantity, item.item_price)}>+ </button>
-                                                <input type='number' name='qty' value={item.quantity} readOnly className='form-control' />
+                                            <div className='col-3 mt-4 '>
+                                                <button className='btn bg-primary mb-1 ' onClick={() => IncreaseQty(i, item.id, item.item_price * item.quantity, item.item_price)}>+ </button>
+                                                <input type='number' name='qty' value={item.quantity} readOnly className='form-control mb-1' />
                                                 <button className='btn bg-danger' onClick={() => DecreaseQty(i, item.id, item.totalPrice, item.item_price)}>-</button>
                                             </div>
                                             <div className='total_Price col-3 mt-3'><h5>Total Price: {item.quantity}*{item.item_price}= Rs. {item.quantity * item.item_price} </h5>
                                             </div>
 
                                         </div>
-                                        <hr className="my-4 w-75" />
+                                        <hr className="my-4 " />
 
                                     </div>
                                 </div>

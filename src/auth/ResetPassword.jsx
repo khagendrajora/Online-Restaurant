@@ -1,49 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { API } from '../Config'
 import axios from 'axios'
-import { useFormik } from 'formik'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
 
 export const ResetPassword = () => {
     const params = useParams()
     const token = params.token
-    const handleSubmit = async (values) => {
-        try {
-            await axios.put(`${API}/resetpassword/${token}`, { password: values.password })
+    const [pass, setPass] = useState('')
 
-        }
-        catch (error) {
-            console.error(error)
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const formData = new FormData()
+            formData.append('password', pass)
+            const Config = {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            const response = await axios.put(`${API}/resetpassword/${token}`, formData, Config)
+            if (response) {
+                toast.success("Password Changed successfully")
+            }
+            setPass({
+                pass: ''
+            })
+        } catch (err) {
+            toast.error(err)
         }
     }
-    const formik = useFormik({
-        initialValues: {
-            password: '', // Set initial values for your form fields
-        },
-        onSubmit: handleSubmit,
-    });
-
     return (
         <>
+            <ToastContainer theme='colored' position='top-right' />
+            <div className='form-container'>
+                <form>
 
-            <form onSubmit={formik.handleSubmit}>
-
-                <div className='container d-flex justify-content-center'>
                     <h2>New Password</h2>
+                    <p>Enter your new password</p>
                     <div className='mb-2'>
                         <label htmlFor='password'>New Password&nbsp;&nbsp;</label>
-                        <input type='password' className="control-label" name='password' id='password'
-                            value={formik.password} onChange={formik.handleChange}
+                        <input type='password' className="form-control rounded" name='password' id='password'
+                            value={pass}
+                            onChange={e => setPass(e.target.value)}
                         />
                     </div>
                     <div className='mb-2'>
-                        <button type='submit' className='btn btn-success'>Send</button>
+                        <button className='btn btn-success' onClick={handleSubmit}>Send</button>
                     </div>
-                </div>
-            </form>
-
-
-
+                    <Link to='/login' className='link '>Return to Login</Link>
+                </form>
+            </div>
         </>
     )
 }
