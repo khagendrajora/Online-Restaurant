@@ -50,29 +50,27 @@ export const Login = () => {
     <>
       <div className='form-container' >
         <form onSubmit={formik.handleSubmit}>
-          <div className='form-body'>
-            <h1 className='page-name mb-5'>Login</h1>
-            <div className="htmlForm-group">
-              <label htmlFor="email">Email address</label>
-              <input type="email" className="control-label" name='email' id="Email" aria-describedby="emailHelp" placeholder="Enter email"
-                onChange={formik.handleChange}
-                value={formik.email} />
-              {formik.touched.name && formik.errors.email ? <div>{formik.errors.email}</div> : null}
+          <h1 className='page-name mb-5'>Login</h1>
+          <div className="htmlForm-group">
+            <label htmlFor="email">Email address</label>
+            <input type="email" className="control-label" name='email' id="Email" aria-describedby="emailHelp" placeholder="Enter email"
+              onChange={formik.handleChange}
+              value={formik.email} />
+            {formik.touched.name && formik.errors.email ? <div>{formik.errors.email}</div> : null}
+          </div>
+          <div className="htmlForm-group">
+            <label htmlFor="password">Password</label>
+            <input type="password" className="control-label" name='password' id="Password" placeholder="Password"
+              onChange={formik.handleChange}
+              value={formik.password} />
+            {formik.touched.name && formik.errors.password ? <div>{formik.errors.password}</div> : null}
+          </div>
+          <div>
+            <div className='d-flex justify-content-between '>
+              <button type="submit" className="m-3 btn btn-success">Login</button>
+              <Link to='/forgetpassword' className='mt-4 link'>Forget Password</Link>
             </div>
-            <div className="htmlForm-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" className="control-label" name='password' id="Password" placeholder="Password"
-                onChange={formik.handleChange}
-                value={formik.password} />
-              {formik.touched.name && formik.errors.password ? <div>{formik.errors.password}</div> : null}
-            </div>
-            <div>
-              <div className='d-flex justify-content-between '>
-                <button type="submit" className="m-3 btn btn-success">Login</button>
-                <Link to='/forgetpassword' className='mt-4 link'>Forget Password</Link>
-              </div>
-              <p>Don`t have an account?<Link to='/signup' className='m-3 link'>Signup</Link></p>
-            </div>
+            <p>Don`t have an account?<Link to='/signup' className='m-3 link'>Signup</Link></p>
           </div>
         </form>
       </div>

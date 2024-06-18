@@ -2,18 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-// import { useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
-// import axios from 'axios';
-import { API, IMG_URL } from '../Config';
+import { IMG_URL } from '../Config';
 
 
 const MyCart = () => {
-    // const navigate = useNavigate()
     const [cartItem, setCartItem] = useState([])
     const [mycartItem, setMyCartItem] = useState([])
     const [totalBill, setTotalBill] = useState('')
-    // const [order, setOrder] = useState(false)
 
 
     useEffect(() => {
@@ -35,15 +31,10 @@ const MyCart = () => {
                 localStorage.setItem('mycartItem', JSON.stringify(cart))
                 localStorage.setItem('totalBill', JSON.stringify(totalBill))
 
-
-
             } else {
                 console.log('not found')
             }
         }
-
-
-
     }, [cartItem])
 
     //increase quantity

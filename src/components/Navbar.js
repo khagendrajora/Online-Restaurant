@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { API } from '../Config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faRightToBracket, faUserPlus, faBurger, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,6 @@ import Card from './Card';
 
 
 const Navbar = () => {
-    const navigate = useNavigate()
     const user = isAuthenticated()
     const [showDropdown, setDropdown] = useState(false)
     const [showSearchBar, setSearchBar] = useState(false)
@@ -119,7 +118,6 @@ const Navbar = () => {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
                                 {showSearchBar && (
                                     <div className='input-wrapper'>
-                                        {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
                                         <input type='search' placeholder='Search' className='form-control' value={search} onChange={handleChange} />
                                     </div>
                                 )
@@ -145,7 +143,6 @@ const Navbar = () => {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} size='2x' className='me-3 m-2 text-black' onClick={handleSearchBar} />
                                 {showSearchBar && (
                                     <div className='input-wrapper'>
-                                        {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
                                         <input type='search' className='form-control' placeholder='Search' value={search} onChange={handleChange} />
                                     </div>
                                 )

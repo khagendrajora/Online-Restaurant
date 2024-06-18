@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const Card = (props) => {
     const [item, setItem] = useState({})
-    // const [clickedAddToCart, setAddToCart] = useState(false)
     const { _id, item_name, item_category, item_description, item_price, item_image } = props.item
     useEffect(() => {
         axios.get(`${API}/itemdetails/${_id}`)

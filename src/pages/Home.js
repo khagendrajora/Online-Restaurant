@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Card from '../components/Card'
 
-import { API, IMG_URL } from '../Config'
+import { API } from '../Config'
 import axios from 'axios'
 import { Helmet } from 'react-helmet'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -54,7 +52,6 @@ export const Home = () => {
       </Helmet>
       {windowSize.current > 576 &&
         <div className='input-wrapper'>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
           <input type='search' placeholder='Search' className='form-control' value={search} onChange={handleChange} />
         </div>
       }
@@ -62,7 +59,6 @@ export const Home = () => {
         <div className='d-flex flex-row col-12 col-sm-12 flex-wrap justify-content-center'>
           {filteredResult && filteredResult.map((item, i) =>
             <Card key={i} item={item}></Card>
-
           )}
           {
             items.map((items, i) => (
@@ -70,8 +66,6 @@ export const Home = () => {
             ))
 
           }
-
-
         </div>
         <hr />
 
