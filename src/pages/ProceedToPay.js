@@ -9,6 +9,7 @@ export const ProceedToPay = () => {
         const buyedItem = JSON.parse(localStorage.getItem('buyedItem'))
         const buyedItems = [buyedItem]
         setBuyedItem(buyedItem)
+        console.log(buyed)
 
         const stripe = await loadStripe('pk_test_51NXj0DFEiZnfC2Vh61hPOfvAhjnFvEAOpmGcUaE58FD0sigvCVNqrv5Dv78Y3mzl2lw0t6MnMZO62CShxTQ0sFjO00nCIk6o7S')
         const data = {

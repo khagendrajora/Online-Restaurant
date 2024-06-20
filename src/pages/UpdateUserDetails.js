@@ -20,9 +20,10 @@ const UpdateUserDetails = () => {
                 setUserName(res.data.name)
                 setUserEmail(res.data.email)
                 setUserLocation(res.data.location)
+                console.log(initialValues)
             })
             .catch(err => console.log(err))
-    }, [])
+    })
 
     const handleSubmit = async (event) => {
         event.preventDefault()

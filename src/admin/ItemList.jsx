@@ -34,7 +34,7 @@ export const ItemList = () => {
         } else {
             setFilteredResult([])
         }
-    }, [search])
+    }, [search, item])
 
 
     const Delete = id => {

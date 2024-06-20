@@ -16,6 +16,7 @@ const MyCart = () => {
         const fetchCart = async () => {
             const cartDetails = JSON.parse(localStorage.getItem('cart'))
             setCartItem(cartDetails)
+
         }
         fetchCart()
     }, [])
@@ -27,6 +28,7 @@ const MyCart = () => {
             if (cart) {
                 const totalBill = cart.reduce((totalBill, item) => totalBill + item.totalPrice, 0)
                 setTotalBill(totalBill)
+
                 setMyCartItem(cart)
                 localStorage.setItem('mycartItem', JSON.stringify(cart))
                 localStorage.setItem('totalBill', JSON.stringify(totalBill))
@@ -36,7 +38,7 @@ const MyCart = () => {
             }
         }
     }, [cartItem])
-
+    console.log(totalBill)
     //increase quantity
     const IncreaseQty = ((i, id, total, price) => {
         const updateCart = [...mycartItem]
