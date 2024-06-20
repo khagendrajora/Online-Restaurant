@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { API } from '../Config'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -21,7 +21,7 @@ export const UserDetails = () => {
         })
             .then(res => setUser(res.data))
             .catch(err => console.log(err))
-    }, [])
+    })
 
     const UserDelete = async (id) => {
         const confirmed = window.confirm("Are you Sure to Delete Account From the system")

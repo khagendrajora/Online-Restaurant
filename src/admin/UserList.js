@@ -10,12 +10,9 @@ const UserList = () => {
     const [filteredResult, setFilteredResult] = useState([])
     const [search, setSearch] = useState('')
     const [user, setUser] = useState([])
-
-
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
-
     useEffect(() => {
         axios.get(`${API}/userlist`)
             .then(res => {
@@ -34,10 +31,7 @@ const UserList = () => {
         } else {
             setFilteredResult([])
         }
-    }, [search])
-
-
-
+    }, [search, user])
     return (
         <>
             <ToastContainer theme='colored' position='top-center' />
@@ -50,12 +44,9 @@ const UserList = () => {
             }
             <div className='item-list'>
                 <div className='data'>
-
-
                     <table className='table table-bordered table-striped'>
                         <thead>
                             <tr>
-                                {/* <th>S.N</th> */}
                                 <th>User Name</th>
                                 <th>Email</th>
                                 <th>Location</th>
@@ -69,12 +60,6 @@ const UserList = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.location}</td>
-                                    {/* <td>
-                                        <div className='action'>
-                                            <button className='btn btn-danger' onClick={() => Delete(item._id)}><FaTrash /></button>
-                                            <button className='btn btn-success' onClick={() => Edit(item._id)}><FaPenAlt /></button>
-                                        </div>
-                                    </td> */}
                                 </tr>
                             )
 
@@ -82,26 +67,16 @@ const UserList = () => {
                             {
                                 user && user.map((user, i) => (
                                     <tr key={i}>
-                                        {/* <td>{SN}</td> */}
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.location}</td>
-                                        {/* <td>
-                                        <div className='action'>
-                                            <button className='btn btn-danger' onClick={() => Delete(item._id)}><FaTrash /></button>
-                                            <button className='btn btn-success' onClick={() => Edit(item._id)}><FaPenAlt /></button>
-                                        </div>
-                                    </td> */}
                                     </tr>
                                 ))
                             }
                         </tbody>
                     </table>
-
                 </div>
             </div>
-
-
         </>
     )
 }

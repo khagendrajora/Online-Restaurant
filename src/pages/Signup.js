@@ -80,13 +80,6 @@ export const Signup = () => {
                             value={formik.password} />
                         {formik.touched.name && formik.errors.password ? <div>{formik.errors.password}</div> : null}
                     </div>
-                    {/* <div className="htmlForm-group ">
-                            <label htmlFor="image">Image</label>
-                            <input type="file" className="control-label" name='image' id="image"
-                                onChange={formik.handleChange}
-                                value={formik.image} />
-
-                        </div> */}
                     <div className=''>
                         <button type="submit" className="m-3 btn btn-success">Sign Up</button>
                         <Link to='/login' className='link '>Already have an account</Link>

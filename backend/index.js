@@ -7,13 +7,7 @@ app.use(cors());   //used when FE and BE are running on different ports and are 
 
 const bodyParser = require('body-parser')
 
-const port = 5000
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
-
-
+const port = process.env.PORT || 5000
 
 //At first import from RoutePAge then use in middleware
 const createUser = require('./routes/UserRoute')

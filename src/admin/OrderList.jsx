@@ -6,17 +6,15 @@ import { ToastContainer, toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
+
 export const OrderList = () => {
     const [orderItem, setOrderItem] = useState([])
     const windowSize = useRef(window.innerWidth)
-
     const [filteredResult, setFilteredResult] = useState([])
     const [search, setSearch] = useState('')
-
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
-
     useEffect(() => {
         const fetchOrder = async () => {
             try {
@@ -28,16 +26,14 @@ export const OrderList = () => {
                     }
                 }
                 )
-
                 setOrderItem(response.data)
-
             }
             catch (error) {
                 console.log('error in fetching orfder', error)
             }
         }
         fetchOrder()
-    }, [])
+    })
 
     useEffect(() => {
         if (search) {
@@ -48,7 +44,7 @@ export const OrderList = () => {
         } else {
             setFilteredResult([])
         }
-    }, [search])
+    }, [search, orderItem])
 
     const handelDeliver = async (id) => {
         try {
@@ -56,7 +52,6 @@ export const OrderList = () => {
         } catch (error) {
             console.error(error)
         }
-
     }
     const handelDelete = async (id) => {
         try {
@@ -84,7 +79,6 @@ export const OrderList = () => {
                 </div>
             }
             <div className='order-container'>
-
                 {filteredResult && filteredResult.map((data, i) =>
                     <div className='order-card' key={data._id}>
                         <div className='order-info '>
@@ -102,9 +96,7 @@ export const OrderList = () => {
                                                     <div className='location'>Location:&nbsp;&nbsp;&nbsp;&nbsp;{data.shippingAddress1}</div>
                                                     <div className='status'>Status:&nbsp;&nbsp;&nbsp;&nbsp;{data.status}</div>
                                                     <div className='contact'>Contact:&nbsp;&nbsp;&nbsp;{data.contact}</div>
-
                                                 </div>
-
                                             ) : (
                                                 <div className='info-content' style={{ backgroundColor: 'green' }}>
                                                     <div className='id'>Food_ID:&nbsp;&nbsp;&nbsp;&nbsp;{orderitems.item._id}</div>
@@ -116,7 +108,6 @@ export const OrderList = () => {
                                                     <hr />
                                                 </div>
                                             )
-
                                         }
                                     </>
                                 ))}
@@ -129,8 +120,6 @@ export const OrderList = () => {
                                     </>
                                 )
                             }
-
-
                             <div className="order-btn">
                                 <button className='btn btn-danger' onClick={() => handelDeliver(data._id)}>Delivered</button>
                                 <button className='btn btn-primary' onClick={() => handelDelete(data._id)}>Delete</button>
@@ -138,10 +127,6 @@ export const OrderList = () => {
                         </div>
                     </div>
                 )}
-
-
-
-
                 {
                     orderItem && orderItem.length > 0 ? (
                         orderItem.map((order, i) => (
@@ -176,7 +161,6 @@ export const OrderList = () => {
                                                             <hr />
                                                         </div>
                                                     )
-
                                                 }
                                             </>
                                         ))}
@@ -189,8 +173,6 @@ export const OrderList = () => {
                                             </>
                                         )
                                     }
-
-
                                     <div className="order-btn d-flex">
                                         <button className='btn btn-danger' onClick={() => handelDeliver(order._id)}>Delivered</button>
                                         <button className='btn btn-primary' onClick={() => handelDelete(order._id)}>Delete</button>
@@ -203,7 +185,6 @@ export const OrderList = () => {
                         <p>No order available</p>
                     )
                 }
-
             </div >
         </>
     )

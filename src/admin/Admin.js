@@ -1,10 +1,8 @@
 
-import { faMagnifyingGlass, faUsers, faUtensils, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faUtensils, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdminDashboard } from './AdminDashboard';
 import { faFirstOrderAlt } from '@fortawesome/free-brands-svg-icons'
 
 
@@ -61,12 +59,6 @@ export const Admin = () => {
                             User List
                         </div>
                     </div>
-
-                    {/* <div className='sub-container' style={{ backgroundColor: 'whitesmoke' }}>
-                        <div className='content'>
-                            Update Order Status
-                        </div>
-                    </div> */}
                 </div>
 
             </div>

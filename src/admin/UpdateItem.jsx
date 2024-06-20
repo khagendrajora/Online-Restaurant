@@ -8,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify'
 const UpdateItem = () => {
     const params = useParams()
     const id = params.id
-
     const [initialValues, setInitialValues] = useState({})
     const [item_name, setItemName] = useState('')
     const [item_category, setItemCategory] = useState('')
@@ -16,11 +15,7 @@ const UpdateItem = () => {
     const [item_price, setItemPrice] = useState('')
     const [item_image, setItemImage] = useState(null)
 
-
-
-
     useEffect(() => {
-
         axios.get(`${API}/itemdetails/${id}`)
             .then(res => {
                 setInitialValues(res.data)
@@ -29,13 +24,9 @@ const UpdateItem = () => {
                 setItemDescription(res.data.item_description)
                 setItemPrice(res.data.item_price)
                 console.log(res.data)
-
-
             })
             .catch(err => console.log(err))
-
-
-    }, [])
+    })
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -59,20 +50,16 @@ const UpdateItem = () => {
             else {
                 toast.error("Failed TO Update")
             }
-
         }
         catch (err) {
             console.error(err)
         }
-
     }
     return (
         <>
             <ToastContainer theme='colored' position='top-right' />
             <div className="container">
-
                 <form className="shadow p-3">
-
                     <h3 className="text-ceter text-muted">Update Item Form</h3>
                     <div className="mb-2">
                         <label htmlFor="item_name">Item Name:</label>
@@ -131,10 +118,7 @@ const UpdateItem = () => {
                             className='form-control'
                             onChange={e => setItemImage(e.target.files[0])}
                         />
-
                     </div>
-
-
                     <div className="mb-2">
                         <button className="btn btn-primary" onClick={handleSubmit}>
                             Update
@@ -142,8 +126,6 @@ const UpdateItem = () => {
                     </div>
                 </form>
             </div>
-
-
         </>
     )
 }
