@@ -4,6 +4,8 @@ import Card from '../components/Card'
 import { API } from '../Config'
 import axios from 'axios'
 import { Helmet } from 'react-helmet'
+import { Carousels } from '../components/Carousels'
+
 
 
 
@@ -55,6 +57,7 @@ export const Home = () => {
           <input type='search' placeholder='Search' className='form-control' value={search} onChange={handleChange} />
         </div>
       }
+      <Carousels />
       <div>
         <div className='d-flex flex-row col-12 col-sm-12 flex-wrap justify-content-center'>
           {filteredResult && filteredResult.map((item, i) =>
