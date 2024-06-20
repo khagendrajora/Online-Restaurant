@@ -1,13 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Card from '../components/Card'
-
 import { API } from '../Config'
 import axios from 'axios'
 import { Helmet } from 'react-helmet'
 import { Carousels } from '../components/Carousels'
-
-
-
 
 
 export const Home = () => {
@@ -20,8 +16,6 @@ export const Home = () => {
     setSearch(e.target.value)
   }
   console.log(search)
-
-
   useEffect(() => {
     const fetchItem = async () => {
       try {
@@ -44,7 +38,7 @@ export const Home = () => {
     } else {
       setFilteredResult([])
     }
-  }, [search])
+  }, [search, items])
 
   return (
     <>

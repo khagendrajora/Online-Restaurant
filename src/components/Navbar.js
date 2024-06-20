@@ -45,7 +45,7 @@ const Navbar = () => {
             setFilteredResult([])
         }
 
-    }, [search])
+    }, [search, items])
 
 
     const windowSize = useRef(window.innerWidth)
